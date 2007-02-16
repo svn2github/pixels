@@ -1,0 +1,10 @@
+ -----
+ Filters Home
+ -----
+ Geoffrey De Smet
+ -----
+
+What is filters?
+
+    A large number of Java Image filters.
+    The filters are all standard Java BufferedImageOps and can be plugged directly into existing programs.

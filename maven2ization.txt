@@ -1,0 +1,10 @@
+Changes
+=======
+- Moved /src to /src/main/java
+- added pom.xml and LICENSE.txt
+- added /src/site etc
+
+
+TODO in my believes
+===================
+- move everything in the package com.jhlabs to the package com.jhlabs.filters

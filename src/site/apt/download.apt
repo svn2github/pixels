@@ -1,0 +1,19 @@
+ -----
+ Download
+ -----
+ Geoffrey De Smet
+ -----
+
+Latest stable release
+
+~~ TODO FIXME
+    {{{http://sourceforge.net/projects/filters}Download the latest stable release from SourceForge.}}
+
+
++--
+javaw -jar networktools-\<version\>.jar
++--
+
+Nightly builds
+
+    Build them yourself from {{{source-repository.html}the source repository}}.

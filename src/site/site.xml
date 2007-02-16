@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-default-skin</artifactId>
+        <version>1.0</version>
+    </skin>
+    <bannerLeft>
+        <name>${project.name}</name>
+        <href>${project.url}</href>
+    </bannerLeft>
+    <publishDate format="yyyy-MM-dd HH:mm"/>
+
+    <poweredBy>
+        <logo name="Build with Maven 2" href="http://maven.apache.org/" target="_blank"
+            img="images/logos/maven-feather.png"/>
+    </poweredBy>
+    <body>
+
+        <links>
+            <item name="SourceForge project page" href="http://sourceforge.net/projects/filters"/><!-- TODO FIXME -->
+            <item name="Get java" href="http://java.com/"/>
+        </links>
+        <menu name="Overview">
+            <item name="Home" href="/index.html"/>
+            <item name="Screenshots" href="/screenshots.html"/>
+            <item name="Download" href="/download.html"/>
+        </menu>
+        <menu name="Development">
+            <item name="Development setup" href="/developmentSetup.html"/>
+        </menu>
+
+        <menu ref="reports" inherit="bottom"/>
+
+    </body>
+</project>
