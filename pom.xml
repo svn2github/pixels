@@ -14,18 +14,16 @@
         A large number of Java Image filters.
         The filters are all standard Java BufferedImageOps and can be plugged directly into existing programs.
     </description>
-    <!-- TODO FIXME -->
 
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>
     <issueManagement/>
     <ciManagement/>
-    <inceptionYear>2007</inceptionYear>
-    <!-- TODO FIXME -->
+    <inceptionYear>1998</inceptionYear>
     <mailingLists/>
     <developers>
-        <developer><!-- TODO FIXME -->
+        <developer>
             <id>jerry</id>
             <name>Jerry Huxtable</name>
             <email>jerry_AT_huxtable.com</email>
@@ -55,15 +53,15 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <scm><!-- TODO FIXME so they use java.net (needed for changelog reports and "mvn release") -->
+    <scm>
         <connection>
-            scm:svn:https://filters.svn.sourceforge.net/svnroot/filters/trunk/filters/
+            scm:svn:https://pixels.dev.java.net/svn/pixels
         </connection>
         <developerConnection>
-            scm:svn:https://filters.svn.sourceforge.net/svnroot/filters/trunk/filters/
+            scm:svn:https://pixels.dev.java.net/svn/pixels
         </developerConnection>
         <url>
-            http://filters.svn.sourceforge.net/viewvc/filters/trunk/filters/
+            https://pixels.dev.java.net/source/browse/pixels/
         </url>
     </scm>
     <organization>
@@ -97,7 +95,6 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.4</source>
-                        <!-- TODO or use 1.5 or 1.3? -->
                         <target>1.4</target>
                     </configuration>
                 </plugin>
