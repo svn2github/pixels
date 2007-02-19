@@ -23,29 +23,69 @@ import java.awt.image.*;
  */
 public class FlipFilter extends AbstractBufferedImageOp {
 
-	public static final int FLIP_H = 1;
+	/**
+     * Flip the image horizontally.
+     */
+    public static final int FLIP_H = 1;
+
+	/**
+     * Flip the image vertically.
+     */
 	public static final int FLIP_V = 2;
+
+	/**
+     * Flip the image horizontally and vertically.
+     */
 	public static final int FLIP_HV = 3;
+
+	/**
+     * Rotate the image 90 degrees clockwise.
+     */
 	public static final int FLIP_90CW = 4;
+
+	/**
+     * Rotate the image 90 degrees counter-clockwise.
+     */
 	public static final int FLIP_90CCW = 5;
+
+	/**
+     * Rotate the image 180 degrees.
+     */
 	public static final int FLIP_180 = 6;
 
 	private int operation;
 	private int width, height;
 	private int newWidth, newHeight;
 
+    /**
+     * Construct a FlipFilter which flips horizontally and vertically.
+     */
 	public FlipFilter() {
 		this(FLIP_HV);
 	}
 
+    /**
+     * Construct a FlipFilter.
+     * @param operation the filter operation
+     */
 	public FlipFilter(int operation) {
 		this.operation = operation;
 	}
 
+    /**
+     * Set the filter operation.
+     * @param operation the filter operation
+     * @see #getOperation
+     */
 	public void setOperation(int operation) {
 		this.operation = operation;
 	}
 
+    /**
+     * Get the filter operation.
+     * @return the filter operation
+     * @see #setOperation
+     */
 	public int getOperation() {
 		return operation;
 	}

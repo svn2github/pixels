@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which performs one round of the game of Life on an image.
+ */
 public class LifeFilter extends BinaryFilter {
 
 	public LifeFilter() {

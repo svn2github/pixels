@@ -49,7 +49,15 @@ public abstract class AbstractBufferedImageOp implements BufferedImageOp, Clonea
 	/**
 	 * A convenience method for getting ARGB pixels from an image. This tries to avoid the performance
 	 * penalty of BufferedImage.getRGB unmanaging the image.
-	 */
+     * @param image   a BufferedImage object
+     * @param x       the left edge of the pixel block
+     * @param y       the right edge of the pixel block
+     * @param width   the width of the pixel arry
+     * @param height  the height of the pixel arry
+     * @param pixels  the array to hold the returned pixels. May be null.
+     * @return the pixels
+     * @see #setRGB
+     */
 	public int[] getRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();
 		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
@@ -60,6 +68,13 @@ public abstract class AbstractBufferedImageOp implements BufferedImageOp, Clonea
 	/**
 	 * A convenience method for setting ARGB pixels in an image. This tries to avoid the performance
 	 * penalty of BufferedImage.setRGB unmanaging the image.
+     * @param image   a BufferedImage object
+     * @param x       the left edge of the pixel block
+     * @param y       the right edge of the pixel block
+     * @param width   the width of the pixel arry
+     * @param height  the height of the pixel arry
+     * @param pixels  the array of pixels to set
+     * @see #getRGB
 	 */
 	public void setRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();

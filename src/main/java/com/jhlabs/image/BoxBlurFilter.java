@@ -30,9 +30,18 @@ public class BoxBlurFilter extends AbstractBufferedImageOp {
 	private int vRadius;
 	private int iterations = 1;
 	
+    /**
+     * Construct a default BoxBlurFilter.
+     */
     public BoxBlurFilter() {
 	}
 	
+    /**
+     * Construct a BoxBlurFilter.
+     * @param hRadius the horizontal radius of blur
+     * @param vRadius the vertical radius of blur
+     * @param iterations the number of time to iterate the blur
+     */
     public BoxBlurFilter( int hRadius, int vRadius, int iterations ) {
 		this.hRadius = hRadius;
 		this.vRadius = vRadius;
@@ -59,6 +68,14 @@ public class BoxBlurFilter extends AbstractBufferedImageOp {
         return dst;
     }
 
+    /**
+     * Blur and transpose a block of ARGB pixels.
+     * @param in the input pixels
+     * @param out the output pixels
+     * @param width the width of the pixel array
+     * @param height the height of the pixel array
+     * @param radius the radius of blur
+     */
     public static void blur( int[] in, int[] out, int width, int height, int radius ) {
         int widthMinus1 = width-1;
         int tableSize = 2*radius+1;
@@ -103,34 +120,78 @@ public class BoxBlurFilter extends AbstractBufferedImageOp {
         }
     }
         
+	/**
+	 * Set the horizontal size of the blur.
+	 * @param hRadius the radius of the blur in the horizontal direction
+     * @min-value 0
+     * @see #getHRadius
+	 */
 	public void setHRadius(int hRadius) {
 		this.hRadius = hRadius;
 	}
 	
+	/**
+	 * Get the horizontal size of the blur.
+	 * @return the radius of the blur in the horizontal direction
+     * @see #setHRadius
+	 */
 	public int getHRadius() {
 		return hRadius;
 	}
 	
+	/**
+	 * Set the vertical size of the blur.
+	 * @param vRadius the radius of the blur in the vertical direction
+     * @min-value 0
+     * @see #getVRadius
+	 */
 	public void setVRadius(int vRadius) {
 		this.vRadius = vRadius;
 	}
 	
+	/**
+	 * Get the vertical size of the blur.
+	 * @return the radius of the blur in the vertical direction
+     * @see #setVRadius
+	 */
 	public int getVRadius() {
 		return vRadius;
 	}
 	
+	/**
+	 * Set both the horizontal and vertical sizes of the blur.
+	 * @param radius the radius of the blur in both directions
+     * @min-value 0
+     * @see #getRadius
+	 */
 	public void setRadius(int radius) {
 		this.hRadius = this.vRadius = radius;
 	}
 	
+	/**
+	 * Get the size of the blur.
+	 * @return the radius of the blur in the horizontal direction
+     * @see #setRadius
+	 */
 	public int getRadius() {
 		return hRadius;
 	}
 	
+	/**
+	 * Set the number of iterations the blur is performed.
+	 * @param iterations the number of iterations
+     * @min-value 0
+     * @see #getIterations
+	 */
 	public void setIterations(int iterations) {
 		this.iterations = iterations;
 	}
 	
+	/**
+	 * Get the number of iterations the blur is performed.
+	 * @return the number of iterations
+     * @see #setIterations
+	 */
 	public int getIterations() {
 		return iterations;
 	}

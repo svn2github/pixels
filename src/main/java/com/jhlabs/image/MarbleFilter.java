@@ -51,18 +51,42 @@ public class MarbleFilter extends TransformFilter {
 		return yScale;
 	}
 
+	/**
+	 * Set the amount of effect.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * Get the amount of texture.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}
 
+	/**
+     * Specifies the turbulence of the texture.
+     * @param turbulence the turbulence of the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getTurbulence
+     */
 	public void setTurbulence(float turbulence) {
 		this.turbulence = turbulence;
 	}
 
+	/**
+     * Returns the turbulence of the effect.
+     * @return the turbulence of the effect.
+     * @see #setTurbulence
+     */
 	public float getTurbulence() {
 		return turbulence;
 	}

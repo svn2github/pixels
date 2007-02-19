@@ -25,37 +25,99 @@ import java.awt.image.*;
  */
 public abstract class TransformFilter extends AbstractBufferedImageOp {
 
+    /**
+     * Treat pixels off the edge as zero.
+     */
 	public final static int ZERO = 0;
+
+    /**
+     * Clamp pixels to the image edges.
+     */
 	public final static int CLAMP = 1;
+
+    /**
+     * Wrap pixels off the edge onto the oppsoite edge.
+     */
 	public final static int WRAP = 2;
 
+    /**
+     * Use nearest-neighbout interpolation.
+     */
 	public final static int NEAREST_NEIGHBOUR = 0;
+
+    /**
+     * Use bilinear interpolation.
+     */
 	public final static int BILINEAR = 1;
 
+    /**
+     * The action to take for pixels off the image edge.
+     */
 	protected int edgeAction = ZERO;
+
+    /**
+     * The type of interpolation to use.
+     */
 	protected int interpolation = BILINEAR;
 
+    /**
+     * The output image rectangle.
+     */
 	protected Rectangle transformedSpace;
+
+    /**
+     * The input image rectangle.
+     */
 	protected Rectangle originalSpace;
 
+    /**
+     * Set the action to perform for pixels off the edge of the image.
+     * @param edgeAction one of ZERO, CLAMP or WRAP
+     * @see #getEdgeAction
+     */
 	public void setEdgeAction(int edgeAction) {
 		this.edgeAction = edgeAction;
 	}
 
+    /**
+     * Get the action to perform for pixels off the edge of the image.
+     * @return one of ZERO, CLAMP or WRAP
+     * @see #setEdgeAction
+     */
 	public int getEdgeAction() {
 		return edgeAction;
 	}
 	
+    /**
+     * Set the type of interpolation to perform.
+     * @param interpolation one of NEAREST_NEIGHBOUR or BILINEAR
+     * @see #getInterpolation
+     */
 	public void setInterpolation(int interpolation) {
 		this.interpolation = interpolation;
 	}
 
+    /**
+     * Get the type of interpolation to perform.
+     * @return one of NEAREST_NEIGHBOUR or BILINEAR
+     * @see #setInterpolation
+     */
 	public int getInterpolation() {
 		return interpolation;
 	}
 	
+    /**
+     * Inverse transform a point. This method needs to be overriden by all subclasses.
+     * @param x the X position of the pixel in the output image
+     * @param y the Y position of the pixel in the output image
+     * @param out the position of the pixel in the input image
+     */
 	protected abstract void transformInverse(int x, int y, float[] out);
 
+    /**
+     * Forward transform a rectangle. Used to determine the size of the output image.
+     * @param rect the rectangle to transform
+     */
 	protected void transformSpace(Rectangle rect) {
 	}
 

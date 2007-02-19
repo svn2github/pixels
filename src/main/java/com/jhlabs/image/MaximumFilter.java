@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which replcaes each pixel by the maximum of itself and its eight neightbours.
+ */
 public class MaximumFilter extends WholeImageFilter {
 
 	public MaximumFilter() {

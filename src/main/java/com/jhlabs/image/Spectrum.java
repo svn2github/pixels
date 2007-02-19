@@ -16,6 +16,9 @@ limitations under the License.
 
 package com.jhlabs.image;
 
+/**
+ * A class for calulating the colors of the spectrum.
+ */
 public class Spectrum {
 
 	private static int adjust(float color, float factor, float gamma) {
@@ -25,8 +28,10 @@ public class Spectrum {
 	}
 	
 	/**
-	* @param wavelength wavelength in nanometres
-	*/
+     * Convert a wavelength to an RGB value.
+	 * @param wavelength wavelength in nanometres
+     * @return the RGB value
+	 */
 	public static int wavelengthToRGB(float wavelength) {
 		float gamma = 0.80f;
 		float r, g, b, factor;

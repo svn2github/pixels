@@ -20,6 +20,10 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
 
+/**
+ * A filter which interpolates betwen two images. You can set the interpolation factor outside the range 0 to 1
+ * to extrapolate images.
+ */
 public class InterpolateFilter extends AbstractBufferedImageOp {
 	
 	private BufferedImage destination;
@@ -28,18 +32,38 @@ public class InterpolateFilter extends AbstractBufferedImageOp {
 	public InterpolateFilter() {
 	}
 
+    /**
+     * Set the destination image.
+     * @param destination the destination image
+     * @see #getDestination
+     */
 	public void setDestination( BufferedImage destination ) {
 		this.destination = destination;
 	}
 	
+    /**
+     * Get the destination image.
+     * @return the destination image
+     * @see #setDestination
+     */
 	public BufferedImage getDestination() {
 		return destination;
 	}
 	
+    /**
+     * Set the interpolation factor.
+     * @param interpolation the interpolation factor
+     * @see #getInterpolation
+     */
 	public void setInterpolation( float interpolation ) {
 		this.interpolation = interpolation;
 	}
 	
+    /**
+     * Get the interpolation factor.
+     * @return the interpolation factor
+     * @see #setInterpolation
+     */
 	public float getInterpolation() {
 		return interpolation;
 	}

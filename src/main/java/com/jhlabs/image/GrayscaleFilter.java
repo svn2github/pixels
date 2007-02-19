@@ -19,8 +19,8 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
-/*
- * A filter which converts an image to grayscale using the NTSC calculation.
+/**
+ * A filter which converts an image to grayscale using the NTSC brightness calculation.
  */
 public class GrayscaleFilter extends PointFilter {
 

@@ -95,10 +95,20 @@ public class QuiltFilter extends WholeImageFilter {
 		return k;
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}

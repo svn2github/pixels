@@ -51,10 +51,22 @@ public class SparkleFilter extends PointFilter {
 		return randomness;
 	}
 
+	/**
+	 * Set the amount of sparkle.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 	
+	/**
+	 * Get the amount of sparkle.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public int getAmount() {
 		return amount;
 	}
@@ -67,10 +79,21 @@ public class SparkleFilter extends PointFilter {
 		return rays;
 	}
 
+	/**
+	 * Set the radius of the effect.
+	 * @param radius the radius
+     * @min-value 0
+     * @see #getRadius
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 
+	/**
+	 * Get the radius of the effect.
+	 * @return the radius
+     * @see #setRadius
+	 */
 	public int getRadius() {
 		return radius;
 	}

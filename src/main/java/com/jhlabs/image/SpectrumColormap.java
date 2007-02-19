@@ -22,7 +22,7 @@ package com.jhlabs.image;
 public class SpectrumColormap implements Colormap {
 	
 	/**
-	 * Construct a spcetrum color map
+	 * Construct a spcetrum color map.
 	 */
 	public SpectrumColormap() {
 	}

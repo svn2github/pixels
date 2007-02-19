@@ -21,7 +21,8 @@ import java.awt.image.*;
 import java.util.*;
 
 /**
- * A filter which can be used to produce wipes by transferring the luma of a Destination image into the alpha channel of the source.
+ * An experimental filter which can be used for keying against a clean shot. Given a source image, a clean image and a destination image, 
+ * the filter replaces all pixels in the source which nearly equal the equivalent clean pixel by destination pixels.
  */
 public class KeyFilter extends AbstractBufferedImageOp {
 	
@@ -31,49 +32,98 @@ public class KeyFilter extends AbstractBufferedImageOp {
 	private BufferedImage destination;
 	private BufferedImage cleanImage;
 
-	public KeyFilter() {
+	/**
+     * Construct a KeyFilter.
+     */
+    public KeyFilter() {
 	}
 
 	/**
-	 * Set the tolerance of the image in the range 0..1.
-	 * *arg tolerance The tolerance
+	 * Set the hue tolerance of the image in the range 0..1.
+	 * @param hTolerance the tolerance
+     * @see #getHTolerance
 	 */
 	public void setHTolerance( float hTolerance ) {
 		this.hTolerance = hTolerance;
 	}
 	
+	/**
+	 * Get the hue tolerance.
+	 * @return the tolerance
+     * @see #setHTolerance
+	 */
 	public float getHTolerance() {
 		return hTolerance;
 	}
 	
+	/**
+	 * Set the saturation tolerance of the image in the range 0..1.
+	 * @param sTolerance the tolerance
+     * @see #getSTolerance
+	 */
 	public void setSTolerance( float sTolerance ) {
 		this.sTolerance = sTolerance;
 	}
 	
+	/**
+	 * Get the saturation tolerance.
+	 * @return the tolerance
+     * @see #setSTolerance
+	 */
 	public float getSTolerance() {
 		return sTolerance;
 	}
 	
+	/**
+	 * Set the brightness tolerance of the image in the range 0..1.
+	 * @param bTolerance the tolerance
+     * @see #getBTolerance
+	 */
 	public void setBTolerance( float bTolerance ) {
 		this.bTolerance = bTolerance;
 	}
 	
+	/**
+	 * Get the brightness tolerance.
+	 * @return the tolerance
+     * @see #setBTolerance
+	 */
 	public float getBTolerance() {
 		return bTolerance;
 	}
 	
+    /**
+     * Set the destination image.
+     * @param destination the destination image
+     * @see #getDestination
+     */
 	public void setDestination( BufferedImage destination ) {
 		this.destination = destination;
 	}
 	
+    /**
+     * Get the destination image.
+     * @return the destination image
+     * @see #setDestination
+     */
 	public BufferedImage getDestination() {
 		return destination;
 	}
 	
+    /**
+     * Get the clean image.
+     * @param cleanImage the clean image
+     * @see #getCleanImage
+     */
 	public void setCleanImage( BufferedImage cleanImage ) {
 		this.cleanImage = cleanImage;
 	}
 	
+    /**
+     * Get the clean image.
+     * @return the clean image
+     * @see #setCleanImage
+     */
 	public BufferedImage getCleanImage() {
 		return cleanImage;
 	}

@@ -21,7 +21,10 @@ import java.awt.image.*;
 import java.util.*;
 import com.jhlabs.math.*;
 
-public class CellularFilter extends WholeImageFilter implements Function2D, MutatableFilter, Cloneable {
+/**
+ * A filter which produces an image with a cellular texture.
+ */
+public class CellularFilter extends WholeImageFilter implements Function2D, Cloneable {
 
 	protected float scale = 32;
 	protected float stretch = 1.0f;
@@ -76,22 +79,52 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 		}
 	}
 	
+	/**
+     * Specifies the scale of the texture.
+     * @param scale the scale of the texture.
+     * @min-value 1
+     * @max-value 300+
+     * @see #getScale
+     */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 
+	/**
+     * Returns the scale of the texture.
+     * @return the scale of the texture.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}
 
+	/**
+     * Specifies the stretch factor of the texture.
+     * @param stretch the stretch factor of the texture.
+     * @min-value 1
+     * @max-value 50+
+     * @see #getStretch
+     */
 	public void setStretch(float stretch) {
 		this.stretch = stretch;
 	}
 
+	/**
+     * Returns the stretch factor of the texture.
+     * @return the stretch factor of the texture.
+     * @see #setStretch
+     */
 	public float getStretch() {
 		return stretch;
 	}
 
+	/**
+     * Specifies the angle of the texture.
+     * @param angle the angle of the texture.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		float cos = (float)Math.cos(angle);
@@ -102,6 +135,11 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 		m11 = cos;
 	}
 
+	/**
+     * Returns the angle of the texture.
+     * @return the angle of the texture.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}
@@ -162,10 +200,20 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 		return coefficients[3];
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}
@@ -194,18 +242,42 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 		return distancePower;
 	}
 
+	/**
+     * Specifies the turbulence of the texture.
+     * @param turbulence the turbulence of the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getTurbulence
+     */
 	public void setTurbulence(float turbulence) {
 		this.turbulence = turbulence;
 	}
 
+	/**
+     * Returns the turbulence of the effect.
+     * @return the turbulence of the effect.
+     * @see #setTurbulence
+     */
 	public float getTurbulence() {
 		return turbulence;
 	}
 
+	/**
+	 * Set the amount of effect.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * Get the amount of texture.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}
@@ -218,42 +290,13 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 		public float distance;
 	}
 	
-/*
-	class Grid {
-		public int setup(int x, int y);
-		public int getNumPoints();
-		public int getX();
-		public int getY();
-	}
-
-	class RandomGrid extends Grid {
-		public int setup(int x, int y) {
-			random.setSeed(571*cubeX + 23*cubeY);
-		}
-		
-		public int getNumPoints() {
-			return 3 + random.nextInt() % 4;
-		}
-		
-		public int getX() {
-			return random.nextfloat();
-		}
-		
-		public int getY() {
-			return random.nextfloat();
-		}
-	}
-*/
-	
 	private float checkCube(float x, float y, int cubeX, int cubeY, Point[] results) {
 		int numPoints;
 		random.setSeed(571*cubeX + 23*cubeY);
 		switch (gridType) {
 		case RANDOM:
 		default:
-//			numPoints = 3 + random.nextInt() % 4;
 			numPoints = probabilities[random.nextInt() & 0x1fff];
-//			numPoints = 4;
 			break;
 		case SQUARE:
 			numPoints = 1;
@@ -423,7 +466,6 @@ public class CellularFilter extends WholeImageFilter implements Function2D, Muta
 	}
 
 	public int getPixel(int x, int y, int[] inPixels, int width, int height) {
-try {
 		float nx = m00*x + m01*y;
 		float ny = m10*x + m11*y;
 		nx /= scale;
@@ -455,11 +497,6 @@ try {
 			int b = v;
 			return a|r|g|b;
 		}
-}
-catch (Exception e) {
-	e.printStackTrace();
-	return 0;
-}
 	}
 
 	protected int[] filterPixels( int width, int height, int[] inPixels, Rectangle transformedSpace ) {
@@ -476,58 +513,6 @@ catch (Exception e) {
 			}
 		}
 		return outPixels;
-	}
-
-	public void mutate(float mutationLevel, BufferedImageOp d, boolean keepShape, boolean keepColors) {
-		CellularFilter dst = (CellularFilter)d;
-		random.setSeed((int)System.currentTimeMillis());
-		if (keepShape || amount == 0) {
-			dst.setGridType(getGridType());
-			dst.setRandomness(getRandomness());
-			dst.setScale(getScale());
-			dst.setAngle(getAngle());
-			dst.setStretch(getStretch());
-			dst.setAmount(getAmount());
-			dst.setTurbulence(getTurbulence());
-			dst.setColormap(getColormap());
-			dst.setDistancePower(getDistancePower());
-			dst.setAngleCoefficient(getAngleCoefficient());
-			for (int i = 0; i < 4; i++)
-				dst.setCoefficient(i, getCoefficient(i));
-		} else {
-			dst.scale = mutate(scale, mutationLevel, 0.4f, 5, 3, 200);
-			dst.setAngle(mutate(angle, mutationLevel, 0.3f, (float)Math.PI/2));
-			dst.stretch = mutate(stretch, mutationLevel, 0.3f, 3, 1, 10);
-			dst.amount = mutate(amount, mutationLevel, 0.3f, 0.2f, 0, 1);
-			dst.turbulence = mutate(turbulence, mutationLevel, 0.3f, 0.5f, 1, 8);
-			dst.distancePower = mutate(distancePower, mutationLevel, 0.2f, 0.5f, 1, 3);
-			dst.randomness = mutate(randomness, mutationLevel, 0.4f, 0.2f, 0, 1);
-			for (int i = 0; i < coefficients.length; i++)
-				dst.coefficients[i] = mutate(coefficients[i], mutationLevel, 0.3f, 0.2f, -1, 1);
-			if (random.nextFloat() <= mutationLevel*0.2)
-				dst.gridType = random.nextInt() % 5;
-			dst.angleCoefficient = mutate(angleCoefficient, mutationLevel, 0.2f, 0.5f, -1, 1);
-		}
-		if (keepColors || mutationLevel == 0)
-			dst.setColormap(getColormap());
-		else if ( random.nextFloat() <= mutationLevel ) {
-			if ( random.nextFloat() <= mutationLevel )
-				dst.setColormap(Gradient.randomGradient());
-			else
-				((Gradient)dst.getColormap()).mutate(mutationLevel);
-		}
-	}
-	
-	private float mutate(float n, float mutationLevel, float probability, float amount, float lower, float upper) {
-		if (random.nextFloat() <= mutationLevel*probability)
-			return n;
-		return ImageMath.clamp(n + mutationLevel*amount * (float)random.nextGaussian(), lower, upper);
-	}
-
-	private float mutate(float n, float mutationLevel, float probability, float amount) {
-		if (random.nextFloat() <= mutationLevel*probability)
-			return n;
-		return n + mutationLevel*amount * (float)random.nextGaussian();
 	}
 
 	public Object clone() {

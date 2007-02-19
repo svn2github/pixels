@@ -21,9 +21,24 @@ package com.jhlabs.image;
  */
 public class ImageMath {
 
+    /**
+     * The value of pi as a float.
+     */
 	public final static float PI = (float)Math.PI;
+
+    /**
+     * The value of half pi as a float.
+     */
 	public final static float HALF_PI = (float)Math.PI/2.0f;
+
+    /**
+     * The value of quarter pi as a float.
+     */
 	public final static float QUARTER_PI = (float)Math.PI/4.0f;
+
+    /**
+     * The value of two pi as a float.
+     */
 	public final static float TWO_PI = (float)Math.PI*2.0f;
 
 	/**

@@ -19,57 +19,96 @@ package com.jhlabs.image;
 import java.awt.image.*;
 import com.jhlabs.math.*;
 
+/**
+ * A filter which produces a simulated wood texture. This is a bit of a hack, but might be usefult to some people.
+ */
 public class WoodFilter extends PointFilter {
 
 	private float scale = 200;
 	private float stretch = 10.0f;
 	private float angle = (float)Math.PI/2;
-	public float rings = 0.5f;
-	public float turbulence = 0.0f;
-	public float fibres = 0.5f;
-	public float gain = 0.8f;
+	private float rings = 0.5f;
+	private float turbulence = 0.0f;
+	private float fibres = 0.5f;
+	private float gain = 0.8f;
 	private float m00 = 1.0f;
 	private float m01 = 0.0f;
 	private float m10 = 0.0f;
 	private float m11 = 1.0f;
 	private Colormap colormap = new LinearColormap( 0xffe5c494, 0xff987b51 );
-	private Function2D function = new Noise();
 
-	public WoodFilter() {
+	/**
+     * Construct a WoodFilter.
+     */
+    public WoodFilter() {
 	}
 
-	public void setRings(float rings) {
+	/**
+     * Specifies the rings value.
+     * @param rings the rings value.
+     * @min-value 0
+     * @max-value 1
+     * @see #getRings
+     */
+    public void setRings(float rings) {
 		this.rings = rings;
 	}
 
-	public float getRings() {
+    /**
+     * Returns the rings value.
+     * @return the rings value.
+     * @see #setRings
+     */
+ 	public float getRings() {
 		return rings;
 	}
 
-	public void setFunction(Function2D function) {
-		this.function = function;
-	}
-
-	public Function2D getFunction() {
-		return function;
-	}
-
+	/**
+     * Specifies the scale of the texture.
+     * @param scale the scale of the texture.
+     * @min-value 1
+     * @max-value 300+
+     * @see #getScale
+     */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 
+	/**
+     * Returns the scale of the texture.
+     * @return the scale of the texture.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}
 
+	/**
+     * Specifies the stretch factor of the texture.
+     * @param stretch the stretch factor of the texture.
+     * @min-value 1
+     * @max-value 50+
+     * @see #getStretch
+     */
 	public void setStretch(float stretch) {
 		this.stretch = stretch;
 	}
 
+	/**
+     * Returns the stretch factor of the texture.
+     * @return the stretch factor of the texture.
+     * @see #setStretch
+     */
 	public float getStretch() {
 		return stretch;
 	}
 
+	/**
+     * Specifies the angle of the texture.
+     * @param angle the angle of the texture.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		float cos = (float)Math.cos(angle);
@@ -80,38 +119,89 @@ public class WoodFilter extends PointFilter {
 		m11 = cos;
 	}
 
+	/**
+     * Returns the angle of the texture.
+     * @return the angle of the texture.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}
 
+	/**
+     * Specifies the turbulence of the texture.
+     * @param turbulence the turbulence of the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getTurbulence
+     */
 	public void setTurbulence(float turbulence) {
 		this.turbulence = turbulence;
 	}
 
+	/**
+     * Returns the turbulence of the texture.
+     * @return the turbulence of the texture.
+     * @see #setTurbulence
+     */
 	public float getTurbulence() {
 		return turbulence;
 	}
 
+	/**
+     * Specifies the amount of fibres in the texture.
+     * @param fibres the amount of fibres in the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getFibres
+     */
 	public void setFibres(float fibres) {
 		this.fibres = fibres;
 	}
 
+	/**
+     * Returns the amount of fibres in  the texture.
+     * @return the amount of fibres in the texture.
+     * @see #setFibres
+     */
 	public float getFibres() {
 		return fibres;
 	}
 
-	public void setgain(float gain) {
+	/**
+     * Specifies the gain of the texture.
+     * @param gain the gain of the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getGain
+     */
+	public void setGain(float gain) {
 		this.gain = gain;
 	}
 
+	/**
+     * Returns the gain of the texture.
+     * @return the gain of the texture.
+     * @see #setGain
+     */
 	public float getGain() {
 		return gain;
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}
@@ -122,14 +212,14 @@ public class WoodFilter extends PointFilter {
 		nx /= scale;
 		ny /= scale * stretch;
 		float f = Noise.noise2(nx, ny);
-f += 0.1f*turbulence * Noise.noise2(nx*0.05f, ny*20);
+        f += 0.1f*turbulence * Noise.noise2(nx*0.05f, ny*20);
 		f = (f * 0.5f) + 0.5f;
 
-f *= rings*50;
-f = f-(int)f;
-f *= 1-ImageMath.smoothStep(gain, 1.0f, f);
+        f *= rings*50;
+        f = f-(int)f;
+        f *= 1-ImageMath.smoothStep(gain, 1.0f, f);
 
-f += fibres*Noise.noise2(nx*scale, ny*50);
+        f += fibres*Noise.noise2(nx*scale, ny*50);
 
 		int a = rgb & 0xff000000;
 		int v;

@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which produces a "oil-painting" effect.
+ */
 public class OilFilter extends WholeImageFilter {
 	
 	private int range = 3;
@@ -27,18 +30,38 @@ public class OilFilter extends WholeImageFilter {
 	public OilFilter() {
 	}
 
+    /**
+     * Set the range of the effect in pixels.
+     * @param range the range
+     * @see #getRange
+     */
 	public void setRange( int range ) {
 		this.range = range;
 	}
 	
+    /**
+     * Get the range of the effect in pixels.
+     * @return the range
+     * @see #setRange
+     */
 	public int getRange() {
 		return range;
 	}
 	
+    /**
+     * Set the number of levels for the effect.
+     * @param levels the number of levels
+     * @see #getLevels
+     */
 	public void setLevels( int levels ) {
 		this.levels = levels;
 	}
 	
+    /**
+     * Get the number of levels for the effect.
+     * @return the number of levels
+     * @see #setLevels
+     */
 	public int getLevels() {
 		return levels;
 	}

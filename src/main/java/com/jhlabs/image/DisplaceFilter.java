@@ -34,18 +34,40 @@ public class DisplaceFilter extends TransformFilter {
 	public DisplaceFilter() {
 	}
 	
+	/**
+	 * Set the displacement map.
+	 * @param displacementMap an image representing the displacment at each point
+     * @see #getDisplacementMap
+	 */
 	public void setDisplacementMap(BufferedImage displacementMap) {
 		this.displacementMap = displacementMap;
 	}
 
+	/**
+	 * Get the displacement map.
+	 * @return an image representing the displacment at each point
+     * @see #setDisplacementMap
+	 */
 	public BufferedImage getDisplacementMap() {
 		return displacementMap;
 	}
 
+	/**
+	 * Set the amount of distortion.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 	
+	/**
+	 * Get the amount of distortion.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}

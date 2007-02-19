@@ -25,17 +25,29 @@ import com.jhlabs.math.*;
  */
 public class DiffuseFilter extends TransformFilter {
 
-	public float[] sinTable, cosTable;
-	public float scale = 4;
+	private float[] sinTable, cosTable;
+	private float scale = 4;
 	
 	public DiffuseFilter() {
 		setEdgeAction(CLAMP);
 	}
 	
+	/**
+     * Specifies the scale of the texture.
+     * @param scale the scale of the texture.
+     * @min-value 1
+     * @max-value 100+
+     * @see #getScale
+     */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 
+	/**
+     * Returns the scale of the texture.
+     * @return the scale of the texture.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}

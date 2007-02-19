@@ -19,7 +19,11 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
-// Based on an algorithm by Zhang and Suen (CACM, March 1984, 236-239).
+/**
+ * A filter which reduces a binary image to a skeleton.
+ *
+ * Based on an algorithm by Zhang and Suen (CACM, March 1984, 236-239).
+ */
 public class SkeletonFilter extends BinaryFilter {
 
 	private final static byte[] skeletonTable = {

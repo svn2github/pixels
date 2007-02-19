@@ -19,12 +19,15 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which removes noise from an image using a "pepper and salt" algorithm.
+ */
 public class DespeckleFilter extends WholeImageFilter {
 
 	public DespeckleFilter() {
 	}
 
-	protected short pepperAndSalt( short c, short v1, short v2 ) {
+	private short pepperAndSalt( short c, short v1, short v2 ) {
 		if ( c < v1 )
 			c++;
 		if ( c < v2 )

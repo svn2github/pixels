@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter to posterize an image.
+ */
 public class PosterizeFilter extends PointFilter {
 
 	private int numLevels;
@@ -29,16 +32,29 @@ public class PosterizeFilter extends PointFilter {
 		setNumLevels(6);
 	}
 	
-	public void setNumLevels(int numLevels) {
+	/**
+     * Set the number of levels in the output image.
+     * @param numLevels the number of levels
+     * @see #getNumLevels
+     */
+    public void setNumLevels(int numLevels) {
 		this.numLevels = numLevels;
 		initialized = false;
 	}
 
+	/**
+     * Get the number of levels in the output image.
+     * @return the number of levels
+     * @see #setNumLevels
+     */
 	public int getNumLevels() {
 		return numLevels;
 	}
 
-	protected void initialize() {
+	/**
+     * Initialize the filter.
+     */
+    protected void initialize() {
 		levels = new int[256];
 		if (numLevels != 1)
 			for (int i = 0; i < 256; i++)

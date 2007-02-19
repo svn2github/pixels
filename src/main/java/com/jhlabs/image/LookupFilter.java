@@ -26,19 +26,36 @@ public class LookupFilter extends PointFilter {
 	
 	private Colormap colormap = new Gradient();
 	
-	public LookupFilter() {
+	/**
+     * Construct a LookupFilter.
+     */
+    public LookupFilter() {
 		canFilterIndexColorModel = true;
 	}
 
+	/**
+     * Construct a LookupFilter.
+     * @param colormap the color map
+     */
 	public LookupFilter(Colormap colormap) {
 		canFilterIndexColorModel = true;
 		this.colormap = colormap;
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}

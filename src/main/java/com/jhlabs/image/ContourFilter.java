@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which draws contours on an image at given brightness levels.
+ */
 public class ContourFilter extends WholeImageFilter {
 
 	private float levels = 5;
@@ -37,10 +40,22 @@ public class ContourFilter extends WholeImageFilter {
 		return levels;
 	}
 	
+	/**
+     * Specifies the scale of the contours.
+     * @param scale the scale of the contours.
+     * @min-value 0
+     * @max-value 1
+     * @see #getScale
+     */
 	public void setScale( float scale ) {
 		this.scale = scale;
 	}
 	
+	/**
+     * Returns the scale of the contours.
+     * @return the scale of the contours.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}

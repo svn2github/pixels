@@ -31,18 +31,40 @@ public class UnsharpFilter extends GaussianFilter {
 		radius = 2;
 	}
 	
+	/**
+     * Set the threshold value.
+     * @param threshold the threshold value
+     * @see #getThreshold
+     */
 	public void setThreshold( int threshold ) {
 		this.threshold = threshold;
 	}
 	
+	/**
+     * Get the threshold value.
+     * @return the threshold value
+     * @see #setThreshold
+     */
 	public int getThreshold() {
 		return threshold;
 	}
 	
+	/**
+	 * Set the amount of sharpening.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount( float amount ) {
 		this.amount = amount;
 	}
 	
+	/**
+	 * Get the amount of sharpening.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}

@@ -36,6 +36,12 @@ public class StampFilter extends PointFilter {
 		setThreshold( threshold );
 	}
 
+	/**
+	 * Set the radius of the effect.
+	 * @param radius the radius
+     * @min-value 0
+     * @see #getRadius
+	 */
 	public void setRadius(float radius) {
 		this.radius = radius;
 	}

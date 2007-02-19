@@ -39,10 +39,22 @@ public class TextureFilter extends PointFilter {
 	public TextureFilter() {
 	}
 
+	/**
+	 * Set the amount of texture.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * Get the amount of texture.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}
@@ -63,22 +75,52 @@ public class TextureFilter extends PointFilter {
 		return operation;
 	}
 	
+	/**
+     * Specifies the scale of the texture.
+     * @param scale the scale of the texture.
+     * @min-value 1
+     * @max-value 300+
+     * @see #getScale
+     */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 
+	/**
+     * Returns the scale of the texture.
+     * @return the scale of the texture.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}
 
+	/**
+     * Specifies the stretch factor of the texture.
+     * @param stretch the stretch factor of the texture.
+     * @min-value 1
+     * @max-value 50+
+     * @see #getStretch
+     */
 	public void setStretch(float stretch) {
 		this.stretch = stretch;
 	}
 
+	/**
+     * Returns the stretch factor of the texture.
+     * @return the stretch factor of the texture.
+     * @see #setStretch
+     */
 	public float getStretch() {
 		return stretch;
 	}
 
+	/**
+     * Specifies the angle of the texture.
+     * @param angle the angle of the texture.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		float cos = (float)Math.cos(angle);
@@ -89,22 +131,49 @@ public class TextureFilter extends PointFilter {
 		m11 = cos;
 	}
 
+	/**
+     * Returns the angle of the texture.
+     * @return the angle of the texture.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}
 
+	/**
+     * Specifies the turbulence of the texture.
+     * @param turbulence the turbulence of the texture.
+     * @min-value 0
+     * @max-value 1
+     * @see #getTurbulence
+     */
 	public void setTurbulence(float turbulence) {
 		this.turbulence = turbulence;
 	}
 
+	/**
+     * Returns the turbulence of the texture.
+     * @return the turbulence of the texture.
+     * @see #setTurbulence
+     */
 	public float getTurbulence() {
 		return turbulence;
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}

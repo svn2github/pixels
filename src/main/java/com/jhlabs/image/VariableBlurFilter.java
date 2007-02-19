@@ -172,10 +172,21 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
 		return vRadius;
 	}
 	
+	/**
+	 * Set the radius of the effect.
+	 * @param radius the radius
+     * @min-value 0
+     * @see #getRadius
+	 */
 	public void setRadius(int radius) {
 		this.hRadius = this.vRadius = radius;
 	}
 	
+	/**
+	 * Get the radius of the effect.
+	 * @return the radius
+     * @see #setRadius
+	 */
 	public int getRadius() {
 		return hRadius;
 	}

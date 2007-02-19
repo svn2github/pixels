@@ -19,30 +19,52 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which performs ordered dithering on an image.
+ */
 public class DitherFilter extends PointFilter {
 	
+	/**
+     * 2x2 magic square.
+     */
 	protected final static int[] ditherMagic2x2Matrix = {
 	 	 0, 2,
 	 	 3, 1
 	};
+
+	/**
+     * 4x4 magic square.
+     */
 	protected final static int[] ditherMagic4x4Matrix = {
 	 	 0, 14,  3, 13,
 		11,  5,  8,  6,
 		12,  2, 15,  1,
 		 7,  9,  4, 10
 	};
+
+	/**
+     * 4x4 ordered dither.
+     */
 	public final static int[] ditherOrdered4x4Matrix = {
 	 	 0,  8,  2, 10,
 		12,  4, 14,  6,
 		 3, 11,  1,  9,
 		15,  7, 13,  5
 	};
+
+	/**
+     * 4x4 lines.
+     */
 	public final static int[] ditherLines4x4Matrix = {
 	 	 0,  1,  2,  3,
 		 4,  5,  6,  7,
 		 8,  9, 10, 11,
 		12, 13, 14, 15
 	};
+
+	/**
+     * 6x6 90 degree halftone.
+     */
 	public final static int[] dither90Halftone6x6Matrix = {
 	 	29, 18, 12, 19, 30, 34,
 		17,  7,  4,  8, 20, 28,
@@ -57,7 +79,9 @@ public class DitherFilter extends PointFilter {
 	 * by Robert Ulichney, MIT Press, ISBN 0-262-21009-6.
 	 */
 
-	/* Order-6 ordered dither */
+	/**
+     * Order-6 ordered dither.
+     */
 	public final static int[] ditherOrdered6x6Matrix = {
 		 1, 59, 15, 55,  2, 56, 12, 52,
 		33, 17, 47, 31, 34, 18, 44, 28,
@@ -69,7 +93,9 @@ public class DitherFilter extends PointFilter {
 		43, 27, 39, 23, 40, 24, 36, 20 
 	};
 
-	/* Order-8 ordered dither */
+	/**
+     * Order-8 ordered dither.
+     */
 	public final static int[] ditherOrdered8x8Matrix = {
 		  1,235, 59,219, 15,231, 55,215,  2,232, 56,216, 12,228, 52,212,
 		129, 65,187,123,143, 79,183,119,130, 66,184,120,140, 76,180,116,
@@ -88,7 +114,9 @@ public class DitherFilter extends PointFilter {
 		 43,203, 27,243, 39,199, 23,253, 40,200, 24,240, 36,196, 20,254,
 		171,107,155, 91,167,103,151, 87,168,104,152, 88,164,100,148, 84 };
 
-	/* Order-3 clustered dither */
+	/**
+     * Order-3 clustered dither.
+     */
 	public final static int[] ditherCluster3Matrix = {
 		 9,11,10, 8, 6, 7,
 		12,17,16, 5, 0, 1,
@@ -97,7 +125,9 @@ public class DitherFilter extends PointFilter {
 		 5, 0, 1,12,17,16,
 		 4, 3, 2,13,14,15 };
 
-	/* Order-4 clustered dither */
+	/**
+     * Order-4 clustered dither.
+     */
 	public final static int[] ditherCluster4Matrix = {
 		18,20,19,16,13,11,12,15,
 		27,28,29,22, 4, 3, 2, 9,
@@ -108,7 +138,9 @@ public class DitherFilter extends PointFilter {
 		 5, 0, 1,10,26,31,30,21,
 		 8, 6, 7,14,23,25,24,17 };
 
-	/* Order-8 clustered dither */
+	/**
+     * Order-8 clustered dither.
+     */
 	public final static int[] ditherCluster8Matrix = {
 		 64, 69, 77, 87, 86, 76, 68, 67, 63, 58, 50, 40, 41, 51, 59, 60,
 		 70, 94,100,109,108, 99, 93, 75, 57, 33, 27, 18, 19, 28, 34, 52,
@@ -127,15 +159,18 @@ public class DitherFilter extends PointFilter {
 		 56, 32, 24, 23, 22, 31, 35, 53, 71, 95,103,104,105, 96, 92, 74,
 		 62, 55, 47, 37, 36, 46, 54, 61, 65, 72, 80, 90, 91, 81, 73, 66 };
 
-	public int[] matrix;
-	public int rows, cols, levels;
-	protected int[] mod;
-	protected int[] div;
-	protected int[] map;
-	public boolean colorDither;
+	private int[] matrix;
+	private int rows, cols, levels;
+	private int[] mod;
+	private int[] div;
+	private int[] map;
+	private boolean colorDither;
 	private boolean initialized = false;
 
-	public DitherFilter() {
+	/**
+     * Constuct a DitherFilter.
+     */
+    public DitherFilter() {
 		rows = 2;
 		cols = 2;
 		matrix = ditherMagic4x4Matrix;
@@ -143,23 +178,46 @@ public class DitherFilter extends PointFilter {
 		colorDither = true;
 	}
 	
+	/**
+	 * Set the dither matrix.
+	 * @param matrix the dither matrix
+     * @see #getMatrix
+	 */
 	public void setMatrix(int[] matrix) {
 		this.matrix = matrix;
 	}
 
+	/**
+	 * Get the dither matrix.
+	 * @return the dither matrix
+     * @see #setMatrix
+	 */
 	public int[] getMatrix() {
 		return matrix;
 	}
 
+	/**
+	 * Set the number of dither levels.
+	 * @param levels the number of levels
+     * @see #getLevels
+	 */
 	public void setLevels(int levels) {
 		this.levels = levels;
 	}
 
+	/**
+	 * Get the number of dither levels.
+	 * @return the number of levels
+     * @see #setLevels
+	 */
 	public int getLevels() {
 		return levels;
 	}
 
-	protected void initialize() {
+	/**
+     * Initialize the filter.
+     */
+    protected void initialize() {
 		rows = cols = (int)Math.sqrt(matrix.length);
 		map = new int[levels];
 		for (int i = 0; i < levels; i++) {

@@ -98,19 +98,40 @@ public class GradientFilter extends AbstractBufferedImageOp {
 		return interpolation;
 	}
 
+	/**
+     * Specifies the angle of the texture.
+     * @param angle the angle of the texture.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		p2 = new Point((int)(64*Math.cos(angle)), (int)(64*Math.sin(angle)));
 	}
 	
+	/**
+     * Returns the angle of the texture.
+     * @return the angle of the texture.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}
 	
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}

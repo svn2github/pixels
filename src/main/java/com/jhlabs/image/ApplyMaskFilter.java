@@ -21,32 +21,71 @@ import java.awt.image.*;
 import java.util.*;
 
 /**
- * A filter which uses the alpha channel of a "mask" image to interpolate between two source images.
+ * A filter which uses the alpha channel of a "mask" image to interpolate between a source and destination image.
  */
 public class ApplyMaskFilter extends AbstractBufferedImageOp {
 	
 	private BufferedImage destination;
 	private BufferedImage maskImage;
 
+    /**
+     * Construct an ApplyMaskFIlter.
+     */
 	public ApplyMaskFilter() {
 	}
 
+    /**
+     * Construct an ApplyMaskFIlter.
+     * @param maskImage the mask image
+     * @param destination the destination image
+     */
+	public ApplyMaskFilter( BufferedImage maskImage, BufferedImage destination ) {
+		this.maskImage = maskImage;
+		this.destination = destination;
+	}
+
+    /**
+     * Set the destination image.
+     * @param destination the destination image
+     * @see #getDestination
+     */
 	public void setDestination( BufferedImage destination ) {
 		this.destination = destination;
 	}
 	
+    /**
+     * Get the destination image.
+     * @return the destination image
+     * @see #setDestination
+     */
 	public BufferedImage getDestination() {
 		return destination;
 	}
 	
+    /**
+     * Set the mask image.
+     * @param maskImage the mask image
+     * @see #getMaskImage
+     */
 	public void setMaskImage( BufferedImage maskImage ) {
 		this.maskImage = maskImage;
 	}
 	
+    /**
+     * Get the mask image.
+     * @return the mask image
+     * @see #setMaskImage
+     */
 	public BufferedImage getMaskImage() {
 		return maskImage;
 	}
 		
+    /**
+     * Interpolates between two rasters according to the alpha level of a mask raster.
+     * @param src the source raster
+     * @param dst the destination raster
+     * @param sel the mask raster
+     */
 	public static void composeThroughMask(Raster src, WritableRaster dst, Raster sel) {
 		int x = src.getMinX();
 		int y = src.getMinY();

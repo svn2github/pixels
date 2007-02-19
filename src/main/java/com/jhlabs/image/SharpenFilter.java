@@ -18,9 +18,12 @@ package com.jhlabs.image;
 
 import java.awt.image.*;
 
+/**
+ * A filter which performs a simple 3x3 sharpening operation.
+ */
 public class SharpenFilter extends ConvolveFilter {
 	
-	protected static float[] sharpenMatrix = {
+	private static float[] sharpenMatrix = {
 		 0.0f, -0.2f,  0.0f,
 		-0.2f,  1.8f, -0.2f,
 		 0.0f, -0.2f,  0.0f

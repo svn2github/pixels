@@ -137,6 +137,11 @@ public class SmartBlurFilter extends AbstractBufferedImageOp {
 		this.hRadius = this.vRadius = radius;
 	}
 	
+	/**
+	 * Get the radius of the effect.
+	 * @return the radius
+     * @see #setRadius
+	 */
 	public int getRadius() {
 		return hRadius;
 	}

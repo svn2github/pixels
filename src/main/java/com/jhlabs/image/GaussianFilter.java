@@ -25,18 +25,25 @@ import java.awt.image.*;
  */
 public class GaussianFilter extends ConvolveFilter {
 
-	protected float radius;
+	/**
+     * The blur radius.
+     */
+    protected float radius;
+
+	/**
+     * The convolution kernel.
+     */
 	protected Kernel kernel;
 	
 	/**
-	 * Construct a Gaussian filter
+	 * Construct a Gaussian filter.
 	 */
 	public GaussianFilter() {
 		this(2);
 	}
 
 	/**
-	 * Construct a Gaussian filter
+	 * Construct a Gaussian filter.
 	 * @param radius blur radius in pixels
 	 */
 	public GaussianFilter(float radius) {
@@ -46,6 +53,9 @@ public class GaussianFilter extends ConvolveFilter {
 	/**
 	 * Set the radius of the kernel, and hence the amount of blur. The bigger the radius, the longer this filter will take.
 	 * @param radius the radius of the blur in pixels.
+     * @min-value 0
+     * @max-value 100+
+     * @see #getRadius
 	 */
 	public void setRadius(float radius) {
 		this.radius = radius;
@@ -55,6 +65,7 @@ public class GaussianFilter extends ConvolveFilter {
 	/**
 	 * Get the radius of the kernel.
 	 * @return the radius
+     * @see #setRadius
 	 */
 	public float getRadius() {
 		return radius;
@@ -80,6 +91,16 @@ public class GaussianFilter extends ConvolveFilter {
         return dst;
     }
 
+    /**
+     * Blur and transpose a block of ARGB pixels.
+     * @param kernel the blur kernel
+     * @param inPixels the input pixels
+     * @param outPixels the output pixels
+     * @param width the width of the pixel array
+     * @param height the height of the pixel array
+     * @param alpha whether to blur the alpha channel
+     * @param edgeAction what to do at the edges
+     */
 	public static void convolveAndTranspose(Kernel kernel, int[] inPixels, int[] outPixels, int width, int height, boolean alpha, int edgeAction) {
 		float[] matrix = kernel.getKernelData( null );
 		int cols = kernel.getWidth();
@@ -126,6 +147,8 @@ public class GaussianFilter extends ConvolveFilter {
 
 	/**
 	 * Make a Gaussian blur kernel.
+     * @param radius the blur radius
+     * @return the kernel
 	 */
 	public static Kernel makeKernel(float radius) {
 		int r = (int)Math.ceil(radius);

@@ -20,6 +20,9 @@ import java.awt.*;
 import java.util.*;
 import com.jhlabs.math.*;
 
+/**
+ * A filter which applies a crystallizing effect to an image, by producing Voronoi cells filled with colours from the image.
+ */
 public class CrystallizeFilter extends CellularFilter {
 
 	private float edgeThickness = 0.4f;

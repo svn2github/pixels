@@ -36,6 +36,7 @@ public class LensBlurFilter extends AbstractBufferedImageOp {
 	/**
 	 * Set the radius of the kernel, and hence the amount of blur.
 	 * @param radius the radius of the blur in pixels.
+     * @see #getRadius
 	 */
 	public void setRadius(float radius) {
 		this.radius = radius;

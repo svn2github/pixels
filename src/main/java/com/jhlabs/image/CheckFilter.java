@@ -87,6 +87,12 @@ public class CheckFilter extends PointFilter {
 		return operation;
 	}
 	
+	/**
+     * Specifies the angle of the texture.
+     * @param angle the angle of the texture.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		float cos = (float)Math.cos(angle);
@@ -97,6 +103,11 @@ public class CheckFilter extends PointFilter {
 		m11 = cos;
 	}
 
+	/**
+     * Returns the angle of the texture.
+     * @return the angle of the texture.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}

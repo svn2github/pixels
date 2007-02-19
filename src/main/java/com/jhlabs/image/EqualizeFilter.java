@@ -24,7 +24,7 @@ import java.awt.image.*;
  */
 public class EqualizeFilter extends WholeImageFilter {
 
-	protected int[][] lut;
+    private int[][] lut;
 
 	public EqualizeFilter() {
 	}
@@ -58,7 +58,7 @@ public class EqualizeFilter extends WholeImageFilter {
 		return inPixels;
 	}
 
-	public int filterRGB(int x, int y, int rgb) {
+	private int filterRGB(int x, int y, int rgb) {
 		if (lut != null) {
 			int a = rgb & 0xff000000;
 			int r = lut[Histogram.RED][(rgb >> 16) & 0xff];

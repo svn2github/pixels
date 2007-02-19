@@ -18,10 +18,18 @@ package com.jhlabs.image;
 
 import java.awt.image.*;
 
+/**
+ * A BufferedImageOp which iterates another BufferedImageOp.
+ */
 public class IteratedFilter extends AbstractBufferedImageOp {
 	private BufferedImageOp filter;
 	private int iterations;
 	
+    /**
+     * Construct an IteratedFilter.
+     * @param filter the filetr to iterate
+     * @param iterations the number of iterations
+     */
 	public IteratedFilter( BufferedImageOp filter, int iterations ) {
 		this.filter = filter;
 		this.iterations = iterations;

@@ -25,18 +25,42 @@ public class ChromeFilter extends LightFilter {
 	private float amount = 0.5f;
 	private float exposure = 1.0f;
 
+	/**
+	 * Set the amount of effect.
+	 * @param amount the amount
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * Get the amount of chrome.
+	 * @return the amount
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}
 
+	/**
+	 * Set the exppsure of the effect.
+	 * @param exposure the exposure
+     * @min-value 0
+     * @max-value 1
+     * @see #getExposure
+	 */
 	public void setExposure(float exposure) {
 		this.exposure = exposure;
 	}
 	
+	/**
+	 * Get the exppsure of the effect.
+	 * @return the exposure
+     * @see #setExposure
+	 */
 	public float getExposure() {
 		return exposure;
 	}

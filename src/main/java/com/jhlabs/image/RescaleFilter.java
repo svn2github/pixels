@@ -19,6 +19,9 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which simply multiplies pixel values by a given scale factor.
+ */
 public class RescaleFilter extends TransferFilter {
 	
 	private float scale = 1.0f;
@@ -27,11 +30,23 @@ public class RescaleFilter extends TransferFilter {
 		return PixelUtils.clamp((int)(v * scale));
 	}
 
+	/**
+     * Specifies the scale factor.
+     * @param scale the scale factor.
+     * @min-value 1
+     * @max-value 5+
+     * @see #getScale
+     */
 	public void setScale(float scale) {
 		this.scale = scale;
 		initialized = false;
 	}
 	
+	/**
+     * Returns the scale factor.
+     * @return the scale factor.
+     * @see #setScale
+     */
 	public float getScale() {
 		return scale;
 	}

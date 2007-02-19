@@ -38,12 +38,23 @@ public class RotateFilter extends TransformFilter {
 		this.resize = resize;
 	}
 
+	/**
+     * Specifies the angle of rotation.
+     * @param angle the angle of rotation.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		cos = (float)Math.cos(this.angle);
 		sin = (float)Math.sin(this.angle);
 	}
 
+	/**
+     * Returns the angle of rotation.
+     * @return the angle of rotation.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}

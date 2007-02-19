@@ -33,9 +33,21 @@ public class BrushedMetalFilter implements BufferedImageOp {
     private boolean monochrome = true;
 	private Random randomNumbers;
 
+    /**
+     * Constructs a BrushedMetalFilter object.
+     */
     public BrushedMetalFilter() {
     }
     
+    /**
+     * Constructs a BrushedMetalFilter object.
+     *
+     * @param color       an int specifying the metal color
+     * @param radius      an int specifying the blur size
+     * @param amount      a float specifying the amount of texture
+     * @param monochrome  a boolean -- true for monochrome texture
+     * @param shine       a float specifying the shine to add
+     */
     public BrushedMetalFilter( int color, int radius, float amount, boolean monochrome, float shine) {
         this.color = color;
         this.radius = radius;
@@ -119,7 +131,7 @@ public class BrushedMetalFilter implements BufferedImageOp {
 		return a;
 	}
 
-    public void blur( int[] in, int[] out, int width, int radius ) {
+    private void blur( int[] in, int[] out, int width, int radius ) {
         int widthMinus1 = width-1;
         int r2 = 2*radius+1;
         int tr = 0, tg = 0, tb = 0;
@@ -149,46 +161,102 @@ public class BrushedMetalFilter implements BufferedImageOp {
         }
     }
 
+	/**
+	 * Set the horizontal size of the blur.
+	 * @param radius the radius of the blur in the horizontal direction
+     * @min-value 0
+     * @max-value 100+
+     * @see #getRadius
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 	
+	/**
+	 * Get the horizontal size of the blur.
+	 * @return the radius of the blur in the horizontal direction
+     * @see #setRadius
+	 */
 	public int getRadius() {
 		return radius;
 	}
 	
+	/**
+	 * Set the amount of noise to add in the range 0..1.
+	 * @param amount the amount of noise
+     * @min-value 0
+     * @max-value 1
+     * @see #getAmount
+	 */
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 	
+	/**
+	 * Get the amount of noise to add.
+	 * @return the amount of noise
+     * @see #setAmount
+	 */
 	public float getAmount() {
 		return amount;
 	}
 
-	public void setColor(int color) {
-		this.color = color;
-	}
-	
-	public int getColor() {
-		return color;
-	}
-	
-	public void setMonochrome(boolean monochrome) {
-		this.monochrome = monochrome;
-	}
-	
-	public boolean getMonochrome() {
-		return monochrome;
-	}
-	
+	/**
+	 * Set the amount of shine to add to the range 0..1.
+	 * @param shine the amount of shine
+     * @min-value 0
+     * @max-value 1
+     * @see #getShine
+	 */
 	public void setShine( float shine ) {
 		this.shine = shine;
 	}
 	
+	/**
+	 * Get the amount of shine to add in the range 0..1.
+	 * @return the amount of shine
+     * @see #setShine
+	 */
 	public float getShine() {
 		return shine;
 	}
 
+	/**
+	 * Set the color of the metal.
+	 * @param color the color in ARGB form
+     * @see #getColor
+	 */
+	public void setColor(int color) {
+		this.color = color;
+	}
+	
+	/**
+	 * Get the color of the metal.
+	 * @return the color in ARGB form
+     * @see #setColor
+	 */
+	public int getColor() {
+		return color;
+	}
+	
+	/**
+	 * Set the type of noise to add.
+	 * @param monochrome true for monochrome noise
+     * @see #getMonochrome
+	 */
+	public void setMonochrome(boolean monochrome) {
+		this.monochrome = monochrome;
+	}
+	
+	/**
+	 * Get the type of noise to add.
+	 * @return true for monochrome noise
+     * @see #setMonochrome
+	 */
+	public boolean getMonochrome() {
+		return monochrome;
+	}
+	
     public BufferedImage createCompatibleDestImage(BufferedImage src, ColorModel dstCM) {
         if ( dstCM == null )
             dstCM = src.getColorModel();
@@ -214,7 +282,7 @@ public class BrushedMetalFilter implements BufferedImageOp {
 	 * A convenience method for setting ARGB pixels in an image. This tries to avoid the performance
 	 * penalty of BufferedImage.setRGB unmanaging the image.
 	 */
-	public void setRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
+	private void setRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();
 		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
 			image.getRaster().setDataElements( x, y, width, height, pixels );

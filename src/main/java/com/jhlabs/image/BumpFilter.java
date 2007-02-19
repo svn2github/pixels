@@ -23,7 +23,7 @@ import java.awt.image.*;
  */
 public class BumpFilter extends ConvolveFilter {
 	
-	protected static float[] embossMatrix = {
+	private static float[] embossMatrix = {
 		-1.0f, -1.0f,  0.0f,
 		-1.0f,  1.0f,  1.0f,
 		 0.0f,  1.0f,  1.0f

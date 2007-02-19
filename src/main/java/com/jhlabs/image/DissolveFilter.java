@@ -34,24 +34,40 @@ public class DissolveFilter extends PointFilter {
 
 	/**
 	 * Set the density of the image in the range 0..1.
-	 * *arg density The density
+	 * @param density the density
+     * @min-value 0
+     * @max-value 1
+     * @see #getDensity
 	 */
 	public void setDensity( float density ) {
 		this.density = density;
 	}
 	
+	/**
+	 * Get the density of the image.
+	 * @return the density
+     * @see #setDensity
+	 */
 	public float getDensity() {
 		return density;
 	}
 	
 	/**
-	 * Set the density of the dissolve in the range 0..1.
-	 * *arg softness The softness
+	 * Set the softness of the dissolve in the range 0..1.
+	 * @param softness the softness
+     * @min-value 0
+     * @max-value 1
+     * @see #getSoftness
 	 */
 	public void setSoftness( float softness ) {
 		this.softness = softness;
 	}
 	
+	/**
+	 * Get the softness of the dissolve.
+	 * @return the softness
+     * @see #setSoftness
+	 */
 	public float getSoftness() {
 		return softness;
 	}

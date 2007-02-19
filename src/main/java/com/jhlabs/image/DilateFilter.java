@@ -24,7 +24,7 @@ import java.awt.image.*;
  */
 public class DilateFilter extends BinaryFilter {
 
-	public int threshold = 2;
+	private int threshold = 2;
 
 	public DilateFilter() {
 	}
@@ -32,6 +32,7 @@ public class DilateFilter extends BinaryFilter {
 	/**
 	 * Set the threshold - the number of neighbouring pixels for dilation to occur.
 	 * @param threshold the new threshold
+     * @see #getThreshold
 	 */
 	public void setThreshold(int threshold) {
 		this.threshold = threshold;
@@ -40,6 +41,7 @@ public class DilateFilter extends BinaryFilter {
 	/**
 	 * Return the threshold - the number of neighbouring pixels for dilation to occur.
 	 * @return the current threshold
+     * @see #setThreshold
 	 */
 	public int getThreshold() {
 		return threshold;

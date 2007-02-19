@@ -35,10 +35,22 @@ public class PlasmaFilter extends WholeImageFilter {
 		randomGenerator = new Random();
 	}
 
+	/**
+     * Specifies the turbulence of the texture.
+     * @param turbulence the turbulence of the texture.
+     * @min-value 0
+     * @max-value 10
+     * @see #getTurbulence
+     */
 	public void setTurbulence(float turbulence) {
 		this.turbulence = turbulence;
 	}
 
+	/**
+     * Returns the turbulence of the effect.
+     * @return the turbulence of the effect.
+     * @see #setTurbulence
+     */
 	public float getTurbulence() {
 		return turbulence;
 	}
@@ -51,10 +63,20 @@ public class PlasmaFilter extends WholeImageFilter {
 		return scaling;
 	}
 
+    /**
+     * Set the colormap to be used for the filter.
+     * @param colormap the colormap
+     * @see #getColormap
+     */
 	public void setColormap(Colormap colormap) {
 		this.colormap = colormap;
 	}
 	
+    /**
+     * Get the colormap to be used for the filter.
+     * @return the colormap
+     * @see #setColormap
+     */
 	public Colormap getColormap() {
 		return colormap;
 	}

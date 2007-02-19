@@ -20,20 +20,48 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.geom.*;
 
+/**
+ * A filter which performs a perspective distortion on an image.
+ */
 public class PerspectiveFilter extends TransformFilter {
 
 	private float x0, y0, x1, y1, x2, y2, x3, y3;
 	private float dx1, dy1, dx2, dy2, dx3, dy3;
 	private float A, B, C, D, E, F, G, H, I;
 	
-	public PerspectiveFilter() {
+	/**
+     * Construct a PerspectiveFilter.
+     */
+    public PerspectiveFilter() {
 		this(0, 0, 100, 0, 100, 100, 0, 100);
 	}
 	
+	/**
+     * Construct a PerspectiveFilter.
+     * @param x0 the new position of the top left corner
+     * @param y0 the new position of the top left corner
+     * @param x1 the new position of the top right corner
+     * @param y1 the new position of the top right corner
+     * @param x2 the new position of the bottom right corner
+     * @param y2 the new position of the bottom right corner
+     * @param x3 the new position of the bottom left corner
+     * @param y3 the new position of the bottom left corner
+     */
 	public PerspectiveFilter(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
 		setCorners(x0, y0, x1, y1, x2, y2, x3, y3);
 	}
 	
+	/**
+     * Set the new positions of the image corners.
+     * @param x0 the new position of the top left corner
+     * @param y0 the new position of the top left corner
+     * @param x1 the new position of the top right corner
+     * @param y1 the new position of the top right corner
+     * @param x2 the new position of the bottom right corner
+     * @param y2 the new position of the bottom right corner
+     * @param x3 the new position of the bottom left corner
+     * @param y3 the new position of the bottom left corner
+     */
 	public void setCorners(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
 		this.x0 = x0;
 		this.y0 = y0;
@@ -90,10 +118,18 @@ public class PerspectiveFilter extends TransformFilter {
 		rect.height = (int)Math.max( Math.max( y0, y1 ), Math.max( y2, y3 ) ) - rect.y;
 	}
 
+    /**
+     * Get the origin of the output image. Use this for working out where to draw your new image.
+     * @return the X origin.
+     */
 	public float getOriginX() {
 		return x0 - (int)Math.min( Math.min( x0, x1 ), Math.min( x2, x3 ) );
 	}
 
+    /**
+     * Get the origin of the output image. Use this for working out where to draw your new image.
+     * @return the Y origin.
+     */
 	public float getOriginY() {
 		return y0 - (int)Math.min( Math.min( y0, y1 ), Math.min( y2, y3 ) );
 	}

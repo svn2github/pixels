@@ -37,10 +37,21 @@ public class MotionBlurOp extends AbstractBufferedImageOp {
         this.zoom = zoom;
     }
     
+	/**
+     * Specifies the angle of blur.
+     * @param angle the angle of blur.
+     * @angle
+     * @see #getAngle
+     */
 	public void setAngle( float angle ) {
 		this.angle = angle;
 	}
 
+	/**
+     * Returns the angle of blur.
+     * @return the angle of blur.
+     * @see #setAngle
+     */
 	public float getAngle() {
 		return angle;
 	}
@@ -69,27 +80,57 @@ public class MotionBlurOp extends AbstractBufferedImageOp {
 		return zoom;
 	}
 	
+	/**
+	 * Set the centre of the effect in the X direction as a proportion of the image size.
+	 * @param centreX the center
+     * @see #getCentreX
+	 */
 	public void setCentreX( float centreX ) {
 		this.centreX = centreX;
 	}
 
+	/**
+	 * Get the centre of the effect in the X direction as a proportion of the image size.
+	 * @return the center
+     * @see #setCentreX
+	 */
 	public float getCentreX() {
 		return centreX;
 	}
 	
+	/**
+	 * Set the centre of the effect in the Y direction as a proportion of the image size.
+	 * @param centreY the center
+     * @see #getCentreY
+	 */
 	public void setCentreY( float centreY ) {
 		this.centreY = centreY;
 	}
 
+	/**
+	 * Get the centre of the effect in the Y direction as a proportion of the image size.
+	 * @return the center
+     * @see #setCentreY
+	 */
 	public float getCentreY() {
 		return centreY;
 	}
 	
+	/**
+	 * Set the centre of the effect as a proportion of the image size.
+	 * @param centre the center
+     * @see #getCentre
+	 */
 	public void setCentre( Point2D centre ) {
 		this.centreX = (float)centre.getX();
 		this.centreY = (float)centre.getY();
 	}
 
+	/**
+	 * Get the centre of the effect as a proportion of the image size.
+	 * @return the center
+     * @see #setCentre
+	 */
 	public Point2D getCentre() {
 		return new Point2D.Float( centreX, centreY );
 	}
