@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jhlabs.filters</groupId>
-    <artifactId>filters-core</artifactId>
+    <groupId>com.jhlabs.pixels</groupId>
+    <artifactId>pixels-core</artifactId>
     <packaging>jar</packaging>
     <version>2.1.0-SNAPSHOT</version>
     <name>JHLabs image filters</name>
