@@ -28,11 +28,11 @@ public class CausticsFilter extends WholeImageFilter {
 
 	private float scale = 32;
 	private float angle = 0.0f;
-	public int brightness = 10;
-	public float amount = 1.0f;
-	public float turbulence = 1.0f;
-	public float dispersion = 0.0f;
-	public float time = 0.0f;
+	private int brightness = 10;
+	private float amount = 1.0f;
+	private float turbulence = 1.0f;
+	private float dispersion = 0.0f;
+	private float time = 0.0f;
 	private int samples = 2;
 	private int bgColor = 0xff799fff;
 
@@ -61,10 +61,22 @@ public class CausticsFilter extends WholeImageFilter {
 		return scale;
 	}
 
+	/**
+     * Set the brightness.
+     * @param brightness the brightness.
+     * @min-value 0
+     * @max-value 1
+     * @see #getBrightness
+     */
 	public void setBrightness(int brightness) {
 		this.brightness = brightness;
 	}
 
+	/**
+     * Get the brightness.
+     * @return the brightness.
+     * @see #setBrightness
+     */
 	public int getBrightness() {
 		return brightness;
 	}
@@ -109,34 +121,76 @@ public class CausticsFilter extends WholeImageFilter {
 		return amount;
 	}
 	
+	/**
+	 * Set the dispersion.
+	 * @param dispersion the dispersion
+     * @min-value 0
+     * @max-value 1
+     * @see #getDispersion
+	 */
 	public void setDispersion(float dispersion) {
 		this.dispersion = dispersion;
 	}
 	
+	/**
+	 * Get the dispersion.
+	 * @return the dispersion
+     * @see #setDispersion
+	 */
 	public float getDispersion() {
 		return dispersion;
 	}
 	
+	/**
+	 * Set the time. Use this to animate the effect.
+	 * @param time the time
+     * @see #getTime
+	 */
 	public void setTime(float time) {
 		this.time = time;
 	}
 	
+	/**
+	 * Set the time.
+	 * @return the time
+     * @see #setTime
+	 */
 	public float getTime() {
 		return time;
 	}
 	
+	/**
+	 * Set the number of samples per pixel. More samples means better quality, but slower rendering.
+	 * @param samples the number of samples
+     * @see #getSamples
+	 */
 	public void setSamples(int samples) {
 		this.samples = samples;
 	}
 	
+	/**
+	 * Get the number of samples per pixel.
+	 * @return the number of samples
+     * @see #setSamples
+	 */
 	public int getSamples() {
 		return samples;
 	}
 	
+	/**
+	 * Set the background color.
+	 * @param c the color
+     * @see #getBgColor
+	 */
 	public void setBgColor(int c) {
 		bgColor = c;
 	}
 
+	/**
+	 * Get the background color.
+	 * @return the color
+     * @see #setBgColor
+	 */
 	public int getBgColor() {
 		return bgColor;
 	}
@@ -271,7 +325,7 @@ public class CausticsFilter extends WholeImageFilter {
 		return 0xff000000 | (r << 16) | (g << 8) | b;
 	}
 	
-	public static float turbulence2(float x, float y, float time, float octaves) {
+	private static float turbulence2(float x, float y, float time, float octaves) {
 		float value = 0.0f;
 		float remainder;
 		float lacunarity = 2.0f;
@@ -296,7 +350,7 @@ public class CausticsFilter extends WholeImageFilter {
 		return value;
 	}
 
-	protected float evaluate(float x, float y) {
+	private float evaluate(float x, float y) {
 		float xt = s*x + c*time;
 		float tt = c*x - c*time;
 		float f = turbulence == 0.0 ? Noise.noise3(xt, y, tt) : turbulence2(xt, y, tt, turbulence);

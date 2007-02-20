@@ -22,14 +22,19 @@ import java.awt.image.*;
 import java.util.*;
 import com.jhlabs.image.*;
 
+/**
+ * A class containing some static utility methods for dealing with BufferedImages.
+ */
 public abstract class ImageUtils {
 	
-	public final static int SELECTED = 0xff000000;
-	public final static int UNSELECTED = 0x00000000;
-	
-	public static BufferedImage backgroundImage = null;
+	private static BufferedImage backgroundImage = null;
 
-	public static BufferedImage createImage(ImageProducer producer) {
+	/**
+     * Cretae a BufferedImage from an ImageProducer.
+     * @param producer the ImageProducer
+     * @return a new TYPE_INT_ARGB BufferedImage
+     */
+    public static BufferedImage createImage(ImageProducer producer) {
 		PixelGrabber pg = new PixelGrabber(producer, 0, 0, -1, -1, null, 0, 0);
 		try {
 			pg.grabPixels();
@@ -47,6 +52,8 @@ public abstract class ImageUtils {
 	
 	/**
 	 * Convert an Image into a TYPE_INT_ARGB BufferedImage. If the image is already of this type, the original image is returned unchanged.
+     * @param image the image to convert
+     * @return the converted image
 	 */
 	public static BufferedImage convertImageToARGB( Image image ) {
 		if ( image instanceof BufferedImage && ((BufferedImage)image).getType() == BufferedImage.TYPE_INT_ARGB )
@@ -58,7 +65,15 @@ public abstract class ImageUtils {
 		return p;
 	}
 	
-	// Returns a *copy* of a subimage of image. This avoids the performance problems associated with BufferedImage.getSubimage.
+	/**
+	 * Returns a *copy* of a subimage of image. This avoids the performance problems associated with BufferedImage.getSubimage.
+     * @param image the image
+     * @param x the x position
+     * @param y the y position
+     * @param w the width
+     * @param h the height
+     * @return the subimage
+	 */
 	public static BufferedImage getSubimage( BufferedImage image, int x, int y, int w, int h ) {
 		BufferedImage newImage = new BufferedImage( w, h, BufferedImage.TYPE_INT_ARGB );
 		Graphics2D g = newImage.createGraphics();
@@ -67,6 +82,11 @@ public abstract class ImageUtils {
 		return newImage;
 	}
 
+	/**
+	 * Clones a BufferedImage.
+     * @param image the image to clone
+     * @return the cloned image
+	 */
 	public static BufferedImage cloneImage( BufferedImage image ) {
 		BufferedImage newImage = new BufferedImage( image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB );
 		Graphics2D g = newImage.createGraphics();
@@ -75,6 +95,15 @@ public abstract class ImageUtils {
 		return newImage;
 	}
 
+	/**
+	 * Paint a check pattern, used for a background to indicate image transparency.
+     * @param c the component to draw into
+     * @param g the Graphics objects
+     * @param x the x position
+     * @param y the y position
+     * @param width the width
+     * @param height the height
+	 */
 	public static void paintCheckedBackground(Component c, Graphics g, int x, int y, int width, int height) {
 		if ( backgroundImage == null ) {
 			backgroundImage = new BufferedImage( 64, 64, BufferedImage.TYPE_INT_ARGB );
@@ -110,6 +139,11 @@ public abstract class ImageUtils {
 		}
 	}
 
+    /**
+     * Calculates the bounds of the non-transparent parts of the given image.
+     * @param p the image
+     * @return the bounds of the non-transparent area
+     */
 	public static Rectangle getSelectedBounds(BufferedImage p) {
 		int width = p.getWidth();
         int height = p.getHeight();
@@ -169,6 +203,9 @@ public abstract class ImageUtils {
 	/**
 	 * Compose src onto dst using the alpha of sel to interpolate between the two.
 	 * I can't think of a way to do this using AlphaComposite.
+     * @param src the source raster
+     * @param dst the destination raster
+     * @param sel the mask raster
 	 */
 	public static void composeThroughMask(Raster src, WritableRaster dst, Raster sel) {
 		int x = src.getMinX();
@@ -214,7 +251,15 @@ public abstract class ImageUtils {
 	/**
 	 * A convenience method for getting ARGB pixels from an image. This tries to avoid the performance
 	 * penalty of BufferedImage.getRGB unmanaging the image.
-	 */
+     * @param image   a BufferedImage object
+     * @param x       the left edge of the pixel block
+     * @param y       the right edge of the pixel block
+     * @param width   the width of the pixel arry
+     * @param height  the height of the pixel arry
+     * @param pixels  the array to hold the returned pixels. May be null.
+     * @return the pixels
+     * @see #setRGB
+     */
 	public static int[] getRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();
 		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
@@ -225,6 +270,13 @@ public abstract class ImageUtils {
 	/**
 	 * A convenience method for setting ARGB pixels in an image. This tries to avoid the performance
 	 * penalty of BufferedImage.setRGB unmanaging the image.
+     * @param image   a BufferedImage object
+     * @param x       the left edge of the pixel block
+     * @param y       the right edge of the pixel block
+     * @param width   the width of the pixel arry
+     * @param height  the height of the pixel arry
+     * @param pixels  the array of pixels to set
+     * @see #getRGB
 	 */
 	public static void setRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();

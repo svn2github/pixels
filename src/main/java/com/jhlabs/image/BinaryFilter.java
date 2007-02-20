@@ -20,6 +20,9 @@ import java.awt.*;
 import java.awt.image.*;
 import com.jhlabs.math.*;
 
+/**
+ * The superclass for some of the filters which work on binary images.
+ */
 public abstract class BinaryFilter extends WholeImageFilter {
 
 	protected int newColor = 0xff000000;
@@ -27,10 +30,21 @@ public abstract class BinaryFilter extends WholeImageFilter {
 	protected int iterations = 1;
 	protected Colormap colormap;
 
+	/**
+	 * Set the number of iterations the effect is performed.
+	 * @param iterations the number of iterations
+     * @min-value 0
+     * @see #getIterations
+	 */
 	public void setIterations(int iterations) {
 		this.iterations = iterations;
 	}
 
+	/**
+	 * Get the number of iterations the effect is performed.
+	 * @return the number of iterations
+     * @see #setIterations
+	 */
 	public int getIterations() {
 		return iterations;
 	}

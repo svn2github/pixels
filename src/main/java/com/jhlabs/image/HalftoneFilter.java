@@ -44,10 +44,22 @@ public class HalftoneFilter extends AbstractBufferedImageOp {
 		return density;
 	}
 	
+	/**
+	 * Set the softness of the effect in the range 0..1.
+	 * @param softness the softness
+     * @min-value 0
+     * @max-value 1
+     * @see #getSoftness
+	 */
 	public void setSoftness( float softness ) {
 		this.softness = softness;
 	}
 	
+	/**
+	 * Get the softness of the effect.
+	 * @return the softness
+     * @see #setSoftness
+	 */
 	public float getSoftness() {
 		return softness;
 	}

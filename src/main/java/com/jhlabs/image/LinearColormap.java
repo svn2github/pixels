@@ -25,14 +25,14 @@ public class LinearColormap implements Colormap {
 	private int color2;
 
 	/**
-	 * Construct a color map with a grayscale ramp from black to white
+	 * Construct a color map with a grayscale ramp from black to white.
 	 */
 	public LinearColormap() {
 		this(0xff000000, 0xffffffff);
 	}
 
 	/**
-	 * Construct a linear color map
+	 * Construct a linear color map.
 	 * @param color1 the color corresponding to value 0 in the colormap
 	 * @param color2 the color corresponding to value 1 in the colormap
 	 */
@@ -42,7 +42,7 @@ public class LinearColormap implements Colormap {
 	}
 
 	/**
-	 * Set the first color
+	 * Set the first color.
 	 * @param color1 the color corresponding to value 0 in the colormap
 	 */
 	public void setColor1(int color1) {
@@ -50,7 +50,7 @@ public class LinearColormap implements Colormap {
 	}
 
 	/**
-	 * Get the first color
+	 * Get the first color.
 	 * @return the color corresponding to value 0 in the colormap
 	 */
 	public int getColor1() {
@@ -58,7 +58,7 @@ public class LinearColormap implements Colormap {
 	}
 
 	/**
-	 * Set the second color
+	 * Set the second color.
 	 * @param color2 the color corresponding to value 1 in the colormap
 	 */
 	public void setColor2(int color2) {
@@ -66,7 +66,7 @@ public class LinearColormap implements Colormap {
 	}
 
 	/**
-	 * Get the second color
+	 * Get the second color.
 	 * @return the color corresponding to value 1 in the colormap
 	 */
 	public int getColor2() {

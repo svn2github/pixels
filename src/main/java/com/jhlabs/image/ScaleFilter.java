@@ -27,10 +27,18 @@ public class ScaleFilter extends AbstractBufferedImageOp {
 	private int width;
 	private int height;
 
+    /**
+     * Construct a ScaleFilter.
+     */
 	public ScaleFilter() {
 		this(32, 32);
 	}
 
+    /**
+     * Construct a ScaleFilter.
+     * @param width the width to scale to
+     * @param height the height to scale to
+     */
 	public ScaleFilter( int width, int height ) {
 		this.width = width;
 		this.height = height;

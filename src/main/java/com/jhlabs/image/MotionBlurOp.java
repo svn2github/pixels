@@ -20,16 +20,30 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 
+/**
+ * A filter which produces motion blur the faster, but lower-quality way.
+ */
 public class MotionBlurOp extends AbstractBufferedImageOp {
+
     private float centreX = 0.5f, centreY = 0.5f;
     private float distance;
     private float angle;
     private float rotation;
     private float zoom;
 
+    /**
+     * Construct a MotionBlurOp.
+     */
     public MotionBlurOp() {
 	}
 	
+    /**
+     * Construct a MotionBlurOp.
+     * @param distance the distance of blur.
+     * @param angle the angle of blur.
+     * @param rotation the angle of rotation.
+     * @param zoom the zoom factor.
+     */
 	public MotionBlurOp( float distance, float angle, float rotation, float zoom ) {
         this.distance = distance;
         this.angle = angle;
@@ -56,26 +70,56 @@ public class MotionBlurOp extends AbstractBufferedImageOp {
 		return angle;
 	}
 	
+	/**
+     * Set the distance of blur.
+     * @param distance the distance of blur.
+     * @see #getDistance
+     */
 	public void setDistance( float distance ) {
 		this.distance = distance;
 	}
 
+	/**
+     * Get the distance of blur.
+     * @return the distance of blur.
+     * @see #setDistance
+     */
 	public float getDistance() {
 		return distance;
 	}
 	
+	/**
+     * Set the blur rotation.
+     * @param rotation the angle of rotation.
+     * @see #getRotation
+     */
 	public void setRotation( float rotation ) {
 		this.rotation = rotation;
 	}
 
+	/**
+     * Get the blur rotation.
+     * @return the angle of rotation.
+     * @see #setRotation
+     */
 	public float getRotation() {
 		return rotation;
 	}
 	
+	/**
+     * Set the blur zoom.
+     * @param zoom the zoom factor.
+     * @see #getZoom
+     */
 	public void setZoom( float zoom ) {
 		this.zoom = zoom;
 	}
 
+	/**
+     * Get the blur zoom.
+     * @return the zoom factor.
+     * @see #setZoom
+     */
 	public float getZoom() {
 		return zoom;
 	}

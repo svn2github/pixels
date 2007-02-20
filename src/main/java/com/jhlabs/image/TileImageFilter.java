@@ -19,40 +19,65 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which tiles an image into a lerger one.
+ */
 public class TileImageFilter extends AbstractBufferedImageOp {
-
-	public static final int FLIP_NONE = 0;
-	public static final int FLIP_H = 1;
-	public static final int FLIP_V = 2;
-	public static final int FLIP_HV = 3;
-	public static final int FLIP_180 = 4;
 
 	private int width;
 	private int height;
 	private int tileWidth;
 	private int tileHeight;
 
-	public TileImageFilter() {
+	/**
+     * Construct a TileImageFilter.
+     */
+    public TileImageFilter() {
 		this(32, 32);
 	}
 
+	/**
+     * Construct a TileImageFilter.
+     * @param width the output image width
+     * @param height the output image height
+     */
 	public TileImageFilter(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
 
+	/**
+     * Set the output image width.
+     * @param width the width
+     * @see #getWidth
+     */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+     * Get the output image width.
+     * @return the width
+     * @see #setWidth
+     */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+     * Set the output image height.
+     * @param height the height
+     * @see #getHeight
+     */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+     * Get the output image height.
+     * @return the height
+     * @see #setHeight
+     */
 	public int getHeight() {
 		return height;
 	}
@@ -76,19 +101,6 @@ public class TileImageFilter extends AbstractBufferedImageOp {
 
         return dst;
     }
-
-	private int[][] symmetryMatrix = null;
-	private int symmetryRows = 2, symmetryCols = 2;
-
-	public void setSymmetryMatrix(int[][] symmetryMatrix) {
-		this.symmetryMatrix = symmetryMatrix;
-		symmetryRows = symmetryMatrix.length;
-		symmetryCols = symmetryMatrix[0].length;
-	}
-
-	public int[][] getSymmetryMatrix() {
-		return symmetryMatrix;
-	}
 
 	public String toString() {
 		return "Tile";

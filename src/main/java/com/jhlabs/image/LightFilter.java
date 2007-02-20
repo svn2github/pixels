@@ -23,20 +23,45 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * A filter which produces lighting and embossing effects.
+ */
 public class LightFilter extends WholeImageFilter {
 	
+    /**
+     * Take the output colors from the input image.
+     */
 	public final static int COLORS_FROM_IMAGE = 0;
+
+    /**
+     * Use constant material color.
+     */
 	public final static int COLORS_CONSTANT = 1;
 
+    /**
+     * Use the input image brightness as the bump map.
+     */
 	public final static int BUMPS_FROM_IMAGE = 0;
+
+    /**
+     * Use the input image alpha as the bump map.
+     */
 	public final static int BUMPS_FROM_IMAGE_ALPHA = 1;
+
+    /**
+     * Use a separate image alpha channel as the bump map.
+     */
 	public final static int BUMPS_FROM_MAP = 2;
+
+    /**
+     * Use a custom function as the bump map.
+     */
 	public final static int BUMPS_FROM_BEVEL = 3;
 
 	private float bumpHeight;
 	private float bumpSoftness;
 	private float viewDistance = 10000.0f;
-	Material material;
+	private Material material;
 	private Vector lights;
 	private int colorSource = COLORS_FROM_IMAGE;
 	private int bumpSource = BUMPS_FROM_IMAGE;
@@ -68,6 +93,14 @@ public class LightFilter extends WholeImageFilter {
 		specular_color = new Color4f();
 		tmpv = new Vector3f();
 		tmpv2 = new Vector3f();
+	}
+
+	public void setMaterial( Material material ) {
+		this.material = material;
+	}
+
+	public Material getMaterial() {
+		return material;
 	}
 
 	public void setBumpFunction(Function2D bumpFunction) {
@@ -333,7 +366,7 @@ public class LightFilter extends WholeImageFilter {
 		return outPixels;
 	}
 
-	public Color4f phongShade(Vector3f position, Vector3f viewpoint, Vector3f normal, Color4f diffuseColor, Color4f specularColor, Material material, Light[] lightsArray) {
+	protected Color4f phongShade(Vector3f position, Vector3f viewpoint, Vector3f normal, Color4f diffuseColor, Color4f specularColor, Material material, Light[] lightsArray) {
 		shadedColor.set(diffuseColor);
 		shadedColor.scale(material.ambientIntensity);
 
@@ -440,7 +473,9 @@ public class LightFilter extends WholeImageFilter {
 		return "Stylize/Light Effects...";
 	}
 
-
+    /**
+     * A class representing material properties.
+     */
 	public static class Material {
 		int diffuseColor;
 		int specularColor;
@@ -475,6 +510,9 @@ public class LightFilter extends WholeImageFilter {
 	public final static int POINT = 2;
 	public final static int SPOT = 3;
 
+    /**
+     * A class representing a light.
+     */
 	public static class Light implements Cloneable {
 
 		int type = AMBIENT;
@@ -593,6 +631,11 @@ public class LightFilter extends WholeImageFilter {
 			return centreY;
 		}
 
+        /**
+         * Prepare the light for rendering.
+         * @param width the output image width
+         * @param height the output image height
+         */
 		public void prepare(int width, int height) {
 			float lx = (float)(Math.cos(azimuth) * Math.cos(elevation));
 			float ly = (float)(Math.sin(azimuth) * Math.cos(elevation));

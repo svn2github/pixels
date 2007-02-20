@@ -47,10 +47,21 @@ public class QuiltFilter extends WholeImageFilter {
 		k = randomGenerator.nextInt() % 20 - 10;
 	}
 	
+	/**
+	 * Set the number of iterations the effect is performed.
+	 * @param iterations the number of iterations
+     * @min-value 0
+     * @see #getIterations
+	 */
 	public void setIterations(int iterations) {
 		this.iterations = iterations;
 	}
 
+	/**
+	 * Get the number of iterations the effect is performed.
+	 * @return the number of iterations
+     * @see #setIterations
+	 */
 	public int getIterations() {
 		return iterations;
 	}

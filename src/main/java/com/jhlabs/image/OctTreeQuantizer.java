@@ -102,6 +102,11 @@ public class OctTreeQuantizer implements Quantizer {
 		}
 	}	
 
+    /**
+     * Get the color table index for a color.
+     * @param rgb the color
+     * @return the index
+     */
 	public int getIndexForColor(int rgb) {
 		int red = (rgb >> 16) & 0xff;
 		int green = (rgb >> 8) & 0xff;
@@ -225,6 +230,10 @@ public class OctTreeQuantizer implements Quantizer {
 		System.out.println("Unable to reduce the OctTree");
 	}
 
+    /**
+     * Build the color table.
+     * @return the color table
+     */
 	public int[] buildColorTable() {
 		int[] table = new int[colors];
 		buildColorTable(root, table, 0);
@@ -233,7 +242,9 @@ public class OctTreeQuantizer implements Quantizer {
 	
 	/**
 	 * A quick way to use the quantizer. Just create a table the right size and pass in the pixels.
-	 */
+     * @param inPixels the input colors
+     * @param table the output color table
+     */
 	public void buildColorTable(int[] inPixels, int[] table) {
 		int count = inPixels.length;
 		maximumColors = table.length;

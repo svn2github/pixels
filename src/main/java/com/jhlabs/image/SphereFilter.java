@@ -61,7 +61,7 @@ public class SphereFilter extends TransformFilter {
 
 	/**
 	 * Set the radius of the effect.
-	 * @param radius the radius
+	 * @param r the radius
      * @min-value 0
      * @see #getRadius
 	 */

@@ -20,6 +20,9 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.geom.*;
 
+/**
+ * A filter which performs a "smart blur". i.e. a blur which blurs smotth parts of the image while preserving edges.
+ */
 public class SmartBlurFilter extends AbstractBufferedImageOp {
 
 	private int hRadius = 5;
@@ -48,7 +51,7 @@ public class SmartBlurFilter extends AbstractBufferedImageOp {
 	/**
 	 * Convolve with a kernel consisting of one row
 	 */
-	public void thresholdBlur(Kernel kernel, int[] inPixels, int[] outPixels, int width, int height, boolean alpha) {
+	private void thresholdBlur(Kernel kernel, int[] inPixels, int[] outPixels, int width, int height, boolean alpha) {
 		int index = 0;
 		float[] matrix = kernel.getKernelData( null );
 		int cols = kernel.getWidth();
@@ -117,22 +120,50 @@ public class SmartBlurFilter extends AbstractBufferedImageOp {
 		}
 	}
 
+	/**
+	 * Set the horizontal size of the blur.
+	 * @param hRadius the radius of the blur in the horizontal direction
+     * @min-value 0
+     * @see #getHRadius
+	 */
 	public void setHRadius(int hRadius) {
 		this.hRadius = hRadius;
 	}
 	
+	/**
+	 * Get the horizontal size of the blur.
+	 * @return the radius of the blur in the horizontal direction
+     * @see #setHRadius
+	 */
 	public int getHRadius() {
 		return hRadius;
 	}
 	
+	/**
+	 * Set the vertical size of the blur.
+	 * @param vRadius the radius of the blur in the vertical direction
+     * @min-value 0
+     * @see #getVRadius
+	 */
 	public void setVRadius(int vRadius) {
 		this.vRadius = vRadius;
 	}
 	
+	/**
+	 * Get the vertical size of the blur.
+	 * @return the radius of the blur in the vertical direction
+     * @see #setVRadius
+	 */
 	public int getVRadius() {
 		return vRadius;
 	}
 	
+	/**
+	 * Set the radius of the effect.
+	 * @param radius the radius
+     * @min-value 0
+     * @see #getRadius
+	 */
 	public void setRadius(int radius) {
 		this.hRadius = this.vRadius = radius;
 	}
@@ -146,10 +177,20 @@ public class SmartBlurFilter extends AbstractBufferedImageOp {
 		return hRadius;
 	}
 	
+	/**
+     * Set the threshold value.
+     * @param threshold the threshold value
+     * @see #getThreshold
+     */
 	public void setThreshold(int threshold) {
 		this.threshold = threshold;
 	}
 	
+	/**
+     * Get the threshold value.
+     * @return the threshold value
+     * @see #setThreshold
+     */
 	public int getThreshold() {
 		return threshold;
 	}

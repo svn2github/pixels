@@ -20,6 +20,9 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 
+/**
+ * A filter which draws a drop shadow based on the alpha channel of the image.
+ */
 public class ShadowFilter extends AbstractBufferedImageOp {
 	
 	private float radius = 5;
@@ -30,9 +33,19 @@ public class ShadowFilter extends AbstractBufferedImageOp {
 	private boolean shadowOnly = false;
 	private int shadowColor = 0xff000000;
 
-	public ShadowFilter() {
+	/**
+     * Construct a ShadowFilter.
+     */
+    public ShadowFilter() {
 	}
 
+	/**
+     * Construct a ShadowFilter.
+     * @param radius the radius of the shadow
+     * @param xOffset the X offset of the shadow
+     * @param yOffset the Y offset of the shadow
+     * @param opacity the opacity of the shadow
+     */
 	public ShadowFilter(float radius, float xOffset, float yOffset, float opacity) {
 		this.radius = radius;
 		this.angle = (float)Math.atan2(yOffset, xOffset);
@@ -59,10 +72,20 @@ public class ShadowFilter extends AbstractBufferedImageOp {
 		return angle;
 	}
 
+	/**
+     * Set the distance of the shadow.
+     * @param distance the distance.
+     * @see #getDistance
+     */
 	public void setDistance(float distance) {
 		this.distance = distance;
 	}
 
+	/**
+     * Get the distance of the shadow.
+     * @return the distance.
+     * @see #setDistance
+     */
 	public float getDistance() {
 		return distance;
 	}
@@ -79,51 +102,110 @@ public class ShadowFilter extends AbstractBufferedImageOp {
 	/**
 	 * Get the radius of the kernel.
 	 * @return the radius
+     * @see #setRadius
 	 */
 	public float getRadius() {
 		return radius;
 	}
 
+	/**
+     * Set the opacity of the shadow.
+     * @param opacity the opacity.
+     * @see #getOpacity
+     */
 	public void setOpacity(float opacity) {
 		this.opacity = opacity;
 	}
 
+	/**
+     * Get the opacity of the shadow.
+     * @return the opacity.
+     * @see #setOpacity
+     */
 	public float getOpacity() {
 		return opacity;
 	}
 
+	/**
+     * Set the color of the shadow.
+     * @param shadowColor the color.
+     * @see #getShadowColor
+     */
 	public void setShadowColor(int shadowColor) {
 		this.shadowColor = shadowColor;
 	}
 
+	/**
+     * Get the color of the shadow.
+     * @return the color.
+     * @see #setShadowColor
+     */
 	public int getShadowColor() {
 		return shadowColor;
 	}
 
+	/**
+     * Set whether to increase the size of the output image to accomodate the shadow.
+     * @param addMargins true to add margins.
+     * @see #getAddMargins
+     */
 	public void setAddMargins(boolean addMargins) {
 		this.addMargins = addMargins;
 	}
 
+	/**
+     * Get whether to increase the size of the output image to accomodate the shadow.
+     * @return true to add margins.
+     * @see #setAddMargins
+     */
 	public boolean getAddMargins() {
 		return addMargins;
 	}
 
+	/**
+     * Set whether to only draw the shadow without the original image.
+     * @param shadowOnly true to only draw the shadow.
+     * @see #getShadowOnly
+     */
 	public void setShadowOnly(boolean shadowOnly) {
 		this.shadowOnly = shadowOnly;
 	}
 
+	/**
+     * Get whether to only draw the shadow without the original image.
+     * @return true to only draw the shadow.
+     * @see #setShadowOnly
+     */
 	public boolean getShadowOnly() {
 		return shadowOnly;
 	}
 
-	protected void transformSpace(Rectangle r) {
+    public Rectangle2D getBounds2D( BufferedImage src ) {
+        Rectangle r = new Rectangle(0, 0, src.getWidth(), src.getHeight());
 		if ( addMargins ) {
 			float xOffset = distance*(float)Math.cos(angle);
 			float yOffset = -distance*(float)Math.sin(angle);
 			r.width += (int)(Math.abs(xOffset)+2*radius);
 			r.height += (int)(Math.abs(yOffset)+2*radius);
 		}
-	}
+        return r;
+    }
+    
+    public Point2D getPoint2D( Point2D srcPt, Point2D dstPt ) {
+        if ( dstPt == null )
+            dstPt = new Point2D.Double();
+
+		if ( addMargins ) {
+            float xOffset = distance*(float)Math.cos(angle);
+            float yOffset = -distance*(float)Math.sin(angle);
+			float topShadow = Math.max( 0, radius-yOffset );
+			float leftShadow = Math.max( 0, radius-xOffset );
+            dstPt.setLocation( srcPt.getX()+leftShadow, srcPt.getY()+topShadow );
+		} else
+            dstPt.setLocation( srcPt.getX(), srcPt.getY() );
+
+        return dstPt;
+    }
 
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
         int width = src.getWidth();

@@ -74,10 +74,20 @@ public class MirrorFilter extends AbstractBufferedImageOp {
 		return gap;
 	}
 	
+	/**
+     * Set the opacity of the reflection.
+     * @param opacity the opacity.
+     * @see #getOpacity
+     */
 	public void setOpacity( float opacity ) {
 		this.opacity = opacity;
 	}
 
+	/**
+     * Get the opacity of the reflection.
+     * @return the opacity.
+     * @see #setOpacity
+     */
 	public float getOpacity() {
 		return opacity;
 	}

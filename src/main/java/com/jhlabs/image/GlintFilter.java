@@ -21,6 +21,9 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import com.jhlabs.composite.*;
 
+/**
+ * A filter which renders "glints" on bright parts of the image.
+ */
 public class GlintFilter extends AbstractBufferedImageOp {
 
     private float threshold = 1.0f;
@@ -33,10 +36,20 @@ public class GlintFilter extends AbstractBufferedImageOp {
     public GlintFilter() {
 	}
 	
+	/**
+     * Set the threshold value.
+     * @param threshold the threshold value
+     * @see #getThreshold
+     */
 	public void setThreshold( float threshold ) {
 		this.threshold = threshold;
 	}
 	
+	/**
+     * Get the threshold value.
+     * @return the threshold value
+     * @see #setThreshold
+     */
 	public float getThreshold() {
 		return threshold;
 	}
@@ -61,26 +74,56 @@ public class GlintFilter extends AbstractBufferedImageOp {
 		return amount;
 	}
 	
+	/**
+     * Set the length of the stars.
+     * @param length the length
+     * @see #getLength
+     */
 	public void setLength( int length ) {
 		this.length = length;
 	}
 	
+	/**
+     * Get the length of the stars.
+     * @return the length
+     * @see #setLength
+     */
 	public int getLength() {
 		return length;
 	}
 	
+	/**
+     * Set the blur that is applied before thresholding.
+     * @param blur the blur radius
+     * @see #getBlur
+     */
 	public void setBlur(float blur) {
 		this.blur = blur;
 	}
 
+	/**
+     * Set the blur that is applied before thresholding.
+     * @return the blur radius
+     * @see #setBlur
+     */
 	public float getBlur() {
 		return blur;
 	}
 	
+	/**
+     * Set whether to render the stars and the image or only the stars.
+     * @param glintOnly true to render only stars
+     * @see #getGlintOnly
+     */
 	public void setGlintOnly(boolean glintOnly) {
 		this.glintOnly = glintOnly;
 	}
 
+	/**
+     * Get whether to render the stars and the image or only the stars.
+     * @return true to render only stars
+     * @see #setGlintOnly
+     */
 	public boolean getGlintOnly() {
 		return glintOnly;
 	}

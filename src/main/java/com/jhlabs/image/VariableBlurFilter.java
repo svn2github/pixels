@@ -20,6 +20,10 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.geom.*;
 
+/**
+ * A filter which performs a box blur with a different blur radius at each pixel. The radius can either be specified by
+ * providing a blur mask image or by overriding the blurRadiusAt method.
+ */
 public class VariableBlurFilter extends AbstractBufferedImageOp {
 
 	private int hRadius = 1;
@@ -68,7 +72,7 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
         return null;
     }
 
-    public void blur( int[] in, int[] out, int width, int height, int radius, int pass ) {
+    private void blur( int[] in, int[] out, int width, int height, int radius, int pass ) {
         int widthMinus1 = width-1;
         int[] r = new int[width];
         int[] g = new int[width];
@@ -142,7 +146,6 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
                 tr += r[i1] - r[i2];
                 tg += g[i1] - g[i2];
                 tb += b[i1] - b[i2];
-//if ( y == 0 && pass == 1 )System.out.println(x+": "+i1+" "+i2+" "+r[i1]+" "+r[i2]+" "+tr);
                 out[ outIndex ] = ((ta/divisor) << 24) | ((tr/divisor) << 16) | ((tg/divisor) << 8) | (tb/divisor);
 
                 outIndex += height;
@@ -151,23 +154,52 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
         }
     }
     
-	// Override this to get a different blur radius
+	/**
+     * Override this to get a different blur radius at eahc point.
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param width the width of the image
+     * @param height the height of the image
+     * @return the blur radius
+     */
 	protected float blurRadiusAt( int x, int y, int width, int height ) {
 		return (float)x/width;
 	}
 
+	/**
+	 * Set the horizontal size of the blur.
+	 * @param hRadius the radius of the blur in the horizontal direction
+     * @min-value 0
+     * @see #getHRadius
+	 */
 	public void setHRadius(int hRadius) {
 		this.hRadius = hRadius;
 	}
 	
+	/**
+	 * Get the horizontal size of the blur.
+	 * @return the radius of the blur in the horizontal direction
+     * @see #setHRadius
+	 */
 	public int getHRadius() {
 		return hRadius;
 	}
 	
+	/**
+	 * Set the vertical size of the blur.
+	 * @param vRadius the radius of the blur in the vertical direction
+     * @min-value 0
+     * @see #getVRadius
+	 */
 	public void setVRadius(int vRadius) {
 		this.vRadius = vRadius;
 	}
 	
+	/**
+	 * Get the vertical size of the blur.
+	 * @return the radius of the blur in the vertical direction
+     * @see #setVRadius
+	 */
 	public int getVRadius() {
 		return vRadius;
 	}
@@ -191,18 +223,39 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
 		return hRadius;
 	}
 	
+	/**
+	 * Set the number of iterations the blur is performed.
+	 * @param iterations the number of iterations
+     * @min-value 0
+     * @see #getIterations
+	 */
 	public void setIterations(int iterations) {
 		this.iterations = iterations;
 	}
 	
+	/**
+	 * Get the number of iterations the blur is performed.
+	 * @return the number of iterations
+     * @see #setIterations
+	 */
 	public int getIterations() {
 		return iterations;
 	}
 	
+	/**
+	 * Set the mask used to give the amount of blur at each point.
+	 * @param blurMask the mask
+     * @see #getBlurMask
+	 */
 	public void setBlurMask(BufferedImage blurMask) {
 		this.blurMask = blurMask;
 	}
 	
+	/**
+	 * Get the mask used to give the amount of blur at each point.
+	 * @return the mask
+     * @see #setBlurMask
+	 */
 	public BufferedImage getBlurMask() {
 		return blurMask;
 	}

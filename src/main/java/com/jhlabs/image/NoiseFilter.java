@@ -24,7 +24,14 @@ import java.util.*;
  */
 public class NoiseFilter extends PointFilter {
 	
+    /**
+     * Gaussian distribution for the noise.
+     */
 	public final static int GAUSSIAN = 0;
+
+    /**
+     * Uniform distribution for the noise.
+     */
 	public final static int UNIFORM = 1;
 	
 	private int amount = 25;
@@ -56,26 +63,56 @@ public class NoiseFilter extends PointFilter {
 		return amount;
 	}
 	
+	/**
+	 * Set the distribution of the noise.
+	 * @param distribution the distribution
+     * @see #getDistribution
+	 */
 	public void setDistribution( int distribution ) {
 		this.distribution = distribution;
 	}
 	
+	/**
+	 * Get the distribution of the noise.
+	 * @return the distribution
+     * @see #setDistribution
+	 */
 	public int getDistribution() {
 		return distribution;
 	}
 	
+	/**
+	 * Set whether to use monochrome noise.
+	 * @param monochrome true for monochrome noise
+     * @see #getMonochrome
+	 */
 	public void setMonochrome(boolean monochrome) {
 		this.monochrome = monochrome;
 	}
 	
+	/**
+	 * Get whether to use monochrome noise.
+	 * @return true for monochrome noise
+     * @see #setMonochrome
+	 */
 	public boolean getMonochrome() {
 		return monochrome;
 	}
 	
+	/**
+	 * Set the density of the noise.
+	 * @param density the density
+     * @see #getDensity
+	 */
 	public void setDensity( float density ) {
 		this.density = density;
 	}
 	
+	/**
+	 * Get the density of the noise.
+	 * @return the density
+     * @see #setDensity
+	 */
 	public float getDensity() {
 		return density;
 	}

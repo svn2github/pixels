@@ -19,10 +19,24 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which distorts and image by performing coordinate conversions between rectangular and polar coordinates.
+ */
 public class PolarFilter extends TransformFilter {
 	
-	public final static int RECT_TO_POLAR = 0;
+	/**
+     * Convert from rectangular to polar coordinates.
+     */
+    public final static int RECT_TO_POLAR = 0;
+
+	/**
+     * Convert from polar to rectangular coordinates.
+     */
 	public final static int POLAR_TO_RECT = 1;
+
+	/**
+     * Invert the image in a circle.
+     */
 	public final static int INVERT_IN_CIRCLE = 2;
 
 	private int type;
@@ -30,10 +44,17 @@ public class PolarFilter extends TransformFilter {
 	private float centreX, centreY;
 	private float radius;
 
-	public PolarFilter() {
+	/**
+     * Construct a PolarFilter.
+     */
+    public PolarFilter() {
 		this(RECT_TO_POLAR);
 	}
 
+	/**
+     * Construct a PolarFilter.
+     * @param type the distortion type
+     */
 	public PolarFilter(int type) {
 		this.type = type;
 		setEdgeAction(CLAMP);
@@ -48,10 +69,20 @@ public class PolarFilter extends TransformFilter {
 		return super.filter( src, dst );
 	}
 	
+	/**
+     * Set the distortion type.
+     * @param type the distortion type
+     * @see #getType
+     */
 	public void setType(int type) {
 		this.type = type;
 	}
 
+	/**
+     * Get the distortion type.
+     * @return the distortion type
+     * @see #setType
+     */
 	public int getType() {
 		return type;
 	}

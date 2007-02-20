@@ -21,6 +21,9 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import com.jhlabs.math.*;
 
+/**
+ * A filter which produces a water ripple distortion.
+ */
 public class WaterFilter extends TransformFilter {
 	
 	private float wavelength = 16;
@@ -38,26 +41,56 @@ public class WaterFilter extends TransformFilter {
 		setEdgeAction( CLAMP );
 	}
 
+	/**
+	 * Set the wavelength of the ripples.
+	 * @param wavelength the wavelength
+     * @see #getWavelength
+	 */
 	public void setWavelength(float wavelength) {
 		this.wavelength = wavelength;
 	}
 
+	/**
+	 * Get the wavelength of the ripples.
+	 * @return the wavelength
+     * @see #setWavelength
+	 */
 	public float getWavelength() {
 		return wavelength;
 	}
 
+	/**
+	 * Set the amplitude of the ripples.
+	 * @param amplitude the amplitude
+     * @see #getAmplitude
+	 */
 	public void setAmplitude(float amplitude) {
 		this.amplitude = amplitude;
 	}
 
+	/**
+	 * Get the amplitude of the ripples.
+	 * @return the amplitude
+     * @see #setAmplitude
+	 */
 	public float getAmplitude() {
 		return amplitude;
 	}
 
+	/**
+	 * Set the phase of the ripples.
+	 * @param phase the phase
+     * @see #getPhase
+	 */
 	public void setPhase(float phase) {
 		this.phase = phase;
 	}
 
+	/**
+	 * Get the phase of the ripples.
+	 * @return the phase
+     * @see #setPhase
+	 */
 	public float getPhase() {
 		return phase;
 	}

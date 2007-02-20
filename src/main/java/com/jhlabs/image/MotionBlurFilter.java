@@ -24,10 +24,6 @@ import java.awt.geom.*;
  */
 public class MotionBlurFilter extends AbstractBufferedImageOp {
 
-	public final static int LINEAR = 0;
-	public final static int RADIAL = 1;
-	public final static int ZOOM = 2;
-	
 	private float angle = 0.0f;
 	private float falloff = 1.0f;
 	private float distance = 1.0f;
@@ -35,9 +31,26 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 	private float rotation = 0.0f;
 	private boolean wrapEdges = false;
 
+    /**
+     * Construct a MotionBlurFilter.
+     */
 	public MotionBlurFilter() {
 	}
 
+    /**
+     * Construct a MotionBlurFilter.
+     * @param distance the distance of blur.
+     * @param angle the angle of blur.
+     * @param rotation the angle of rotation.
+     * @param zoom the zoom factor.
+     */
+	public MotionBlurFilter( float distance, float angle, float rotation, float zoom ) {
+        this.distance = distance;
+        this.angle = angle;
+        this.rotation = rotation;
+        this.zoom = zoom;
+    }
+    
 	/**
      * Specifies the angle of blur.
      * @param angle the angle of blur.
@@ -57,34 +70,74 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 		return angle;
 	}
 	
+	/**
+     * Set the distance of blur.
+     * @param distance the distance of blur.
+     * @see #getDistance
+     */
 	public void setDistance( float distance ) {
 		this.distance = distance;
 	}
 
+	/**
+     * Get the distance of blur.
+     * @return the distance of blur.
+     * @see #setDistance
+     */
 	public float getDistance() {
 		return distance;
 	}
 	
+	/**
+     * Set the blur rotation.
+     * @param rotation the angle of rotation.
+     * @see #getRotation
+     */
 	public void setRotation( float rotation ) {
 		this.rotation = rotation;
 	}
 
+	/**
+     * Get the blur rotation.
+     * @return the angle of rotation.
+     * @see #setRotation
+     */
 	public float getRotation() {
 		return rotation;
 	}
 	
+	/**
+     * Set the blur zoom.
+     * @param zoom the zoom factor.
+     * @see #getZoom
+     */
 	public void setZoom( float zoom ) {
 		this.zoom = zoom;
 	}
 
+	/**
+     * Get the blur zoom.
+     * @return the zoom factor.
+     * @see #setZoom
+     */
 	public float getZoom() {
 		return zoom;
 	}
 	
+	/**
+     * Set whether to wrap at the image edges.
+     * @param wrapEdges true if it should wrap.
+     * @see #getWrapEdges
+     */
 	public void setWrapEdges(boolean wrapEdges) {
 		this.wrapEdges = wrapEdges;
 	}
 
+	/**
+     * Get whether to wrap at the image edges.
+     * @return true if it should wrap.
+     * @see #setWrapEdges
+     */
 	public boolean getWrapEdges() {
 		return wrapEdges;
 	}

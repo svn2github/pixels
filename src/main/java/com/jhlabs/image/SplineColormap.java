@@ -27,18 +27,26 @@ import java.io.*;
  */
 public class SplineColormap extends ArrayColormap {
 
-	public int numKnots = 4;
-    public int[] xKnots = {
+	private int numKnots = 4;
+    private int[] xKnots = {
     	0, 0, 255, 255
     };
-    public int[] yKnots = {
+    private int[] yKnots = {
     	0xff000000, 0xff000000, 0xffffffff, 0xffffffff,
     };
 	
-	public SplineColormap() {
+	/**
+     * Construct a SplineColormap.
+     */
+    public SplineColormap() {
 		rebuildGradient();
 	}
 
+	/**
+     * Construct a SplineColormap.
+     * @param xKnots the knot positions
+     * @param yKnots the knot colors
+     */
 	public SplineColormap(int[] xKnots, int[] yKnots) {
 		this.xKnots = xKnots;
 		this.yKnots = yKnots;
@@ -46,15 +54,33 @@ public class SplineColormap extends ArrayColormap {
 		rebuildGradient();
 	}
 
-	public int getKnot(int n) {
-		return yKnots[n];
-	}
-
+    /**
+     * Set a knot color.
+     * @param n the knot index
+     * @param color the color
+     * @see #getKnot
+     */
 	public void setKnot(int n, int color) {
 		yKnots[n] = color;
 		rebuildGradient();
 	}
 	
+    /**
+     * Get a knot color.
+     * @param n the knot index
+     * @return the knot color
+     * @see #setKnot
+     */
+	public int getKnot(int n) {
+		return yKnots[n];
+	}
+
+    /**
+     * Add a new knot.
+     * @param x the knot position
+     * @param color the color
+     * @see #removeKnot
+     */
 	public void addKnot(int x, int color) {
 		int[] nx = new int[numKnots+1];
 		int[] ny = new int[numKnots+1];
@@ -69,6 +95,11 @@ public class SplineColormap extends ArrayColormap {
 		rebuildGradient();
 	}
 	
+    /**
+     * Remove a knot.
+     * @param n the knot index
+     * @see #addKnot
+     */
 	public void removeKnot(int n) {
 		if (numKnots <= 4)
 			return;
@@ -80,6 +111,11 @@ public class SplineColormap extends ArrayColormap {
 		rebuildGradient();
 	}
 	
+    /**
+     * Set a knot position.
+     * @param n the knot index
+     * @param x the knot position
+     */
 	public void setKnotPosition(int n, int x) {
 		xKnots[n] = PixelUtils.clamp(x);
 		sortKnots();

@@ -27,10 +27,18 @@ public class MapColorsFilter extends PointFilter {
 	private int oldColor;
 	private int newColor;
 	
-	public MapColorsFilter() {
+	/**
+     * Construct a MapColorsFilter.
+     */
+    public MapColorsFilter() {
 		this( 0xffffffff, 0xff000000 );
 	}
 	
+	/**
+     * Construct a MapColorsFilter.
+     * @param oldColor the color to replace
+     * @param newColor the color to replace it with
+     */
 	public MapColorsFilter(int oldColor, int newColor) {
 		canFilterIndexColorModel = true;
 		this.oldColor = oldColor;

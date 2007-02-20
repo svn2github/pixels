@@ -23,7 +23,7 @@ import java.awt.color.*;
 import com.jhlabs.math.*;
 
 /**
- * A filter which use FFTs to simulate lens blur on an image
+ * A filter which use FFTs to simulate lens blur on an image.
  */
 public class LensBlurFilter extends AbstractBufferedImageOp {
     
@@ -45,31 +45,62 @@ public class LensBlurFilter extends AbstractBufferedImageOp {
 	/**
 	 * Get the radius of the kernel.
 	 * @return the radius
+     * @see #setRadius
 	 */
 	public float getRadius() {
 		return radius;
 	}
 
+	/**
+	 * Set the number of sides of the aperture.
+	 * @param sides the number of sides
+     * @see #getSides
+	 */
 	public void setSides(int sides) {
 		this.sides = sides;
 	}
 	
+	/**
+	 * Get the number of sides of the aperture.
+	 * @return the number of sides
+     * @see #setSides
+	 */
 	public int getSides() {
 		return sides;
 	}
 
+	/**
+	 * Set the bloom factor.
+	 * @param bloom the bloom factor
+     * @see #getBloom
+	 */
 	public void setBloom(float bloom) {
 		this.bloom = bloom;
 	}
 	
+	/**
+	 * Get the bloom factor.
+	 * @return the bloom factor
+     * @see #setBloom
+	 */
 	public float getBloom() {
 		return bloom;
 	}
 
+	/**
+	 * Set the bloom threshold.
+	 * @param bloomThreshold the bloom threshold
+     * @see #getBloomThreshold
+	 */
 	public void setBloomThreshold(float bloomThreshold) {
 		this.bloomThreshold = bloomThreshold;
 	}
 	
+	/**
+	 * Get the bloom threshold.
+	 * @return the bloom threshold
+     * @see #setBloomThreshold
+	 */
 	public float getBloomThreshold() {
 		return bloomThreshold;
 	}

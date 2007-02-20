@@ -30,14 +30,37 @@ public class TransitionFilter extends AbstractBufferedImageOp {
 	
 	private float transition = 0;
 	private BufferedImage destination;
-    protected BufferedImageOp filter;
     private String property;
     private Method method;
-    protected float minValue, maxValue;
 
+    /**
+     * The filter used for the transition.
+     */
+    protected BufferedImageOp filter;
+
+    /**
+     * The start value for the filter property.
+     */
+    protected float minValue;
+
+    /**
+     * The end value for the filter property.
+     */
+    protected float maxValue;
+
+    /**
+     * Construct a TransitionFilter.
+     */
 	private TransitionFilter() {
 	}
 
+    /**
+     * Construct a TransitionFilter.
+     * @param filter the filter to use
+     * @param property the filter property which is changed over the transition
+     * @param minValue the start value for the filter property
+     * @param maxValue the end value for the filter property
+     */
 	public TransitionFilter( BufferedImageOp filter, String property, float minValue, float maxValue ) {
 		this.filter = filter;
 		this.property = property;
@@ -66,7 +89,7 @@ public class TransitionFilter extends AbstractBufferedImageOp {
 	 * @param transition the transition
      * @min-value 0
      * @max-value 1
-     * @see getTransition
+     * @see #getTransition
 	 */
 	public void setTransition( float transition ) {
 		this.transition = transition;
@@ -75,7 +98,7 @@ public class TransitionFilter extends AbstractBufferedImageOp {
 	/**
 	 * Get the transition of the image.
 	 * @return the transition
-     * @see setTransition
+     * @see #setTransition
 	 */
 	public float getTransition() {
 		return transition;
@@ -109,6 +132,11 @@ public class TransitionFilter extends AbstractBufferedImageOp {
 	}
 */
 	
+    /**
+     * Prepare the filter for the transiton at a given time.
+     * The default implementation sets the given filter property, but you could override this method to make other changes.
+     * @param transition the transition time in the range 0 - 1
+     */
 	public void prepareFilter( float transition ) {
         try {
             method.invoke( filter, new Object[] { new Float( transition ) } );

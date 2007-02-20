@@ -19,20 +19,35 @@ package com.jhlabs.image;
 import java.awt.*;
 import java.awt.image.*;
 
+/**
+ * A filter which rotates an image. These days this is easier done with Java2D, but this filter remains.
+ */
 public class RotateFilter extends TransformFilter {
 	
 	private float angle;
 	private float cos, sin;
 	private boolean resize = true;
 
-	public RotateFilter() {
+	/**
+     * Construct a RotateFilter.
+     */
+    public RotateFilter() {
 		this(ImageMath.PI);
 	}
 
+	/**
+     * Construct a RotateFilter.
+     * @param angle the angle to rotate
+     */
 	public RotateFilter(float angle) {
 		this(angle, true);
 	}
 
+	/**
+     * Construct a RotateFilter.
+     * @param angle the angle to rotate
+     * @param resize true if the output image should be resized
+     */
 	public RotateFilter(float angle, boolean resize) {
 		setAngle(angle);
 		this.resize = resize;
@@ -91,7 +106,7 @@ public class RotateFilter extends TransformFilter {
 		}
 	}
 
-	protected void transform(int x, int y, Point out) {
+	private void transform(int x, int y, Point out) {
 		out.x = (int)((x * cos) + (y * sin));
 		out.y = (int)((y * cos) - (x * sin));
 	}

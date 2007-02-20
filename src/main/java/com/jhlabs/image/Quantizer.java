@@ -36,14 +36,13 @@ public interface Quantizer {
 	 */
 	public void addPixels(int[] pixels, int offset, int count);
 	
-	/*
+	/**
 	 * Build a color table from the added pixels.
-	 * @param 
 	 * @return an array of ARGB pixels representing a color table
 	 */
 	public int[] buildColorTable();
 	
-	/*
+	/**
 	 * Using the previously-built color table, return the index into that table for a pixel.
 	 * This is guaranteed to return a valid index - returning the index of a color closer
 	 * to that requested if necessary. 
