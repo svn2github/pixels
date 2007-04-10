@@ -30,6 +30,7 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 	private float zoom = 0.0f;
 	private float rotation = 0.0f;
 	private boolean wrapEdges = false;
+	private boolean premultiplyAlpha = true;
 
     /**
      * Construct a MotionBlurFilter.
@@ -142,6 +143,24 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 		return wrapEdges;
 	}
 
+    /**
+     * Set whether to premultiply the alpha channel.
+     * @param premultiplyAlpha true to premultiply the alpha
+     * @see #getPremultiplyAlpha
+     */
+	public void setPremultiplyAlpha( boolean premultiplyAlpha ) {
+		this.premultiplyAlpha = premultiplyAlpha;
+	}
+
+    /**
+     * Get whether to premultiply the alpha channel.
+     * @return true to premultiply the alpha
+     * @see #setPremultiplyAlpha
+     */
+	public boolean getPremultiplyAlpha() {
+		return premultiplyAlpha;
+	}
+
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
         int width = src.getWidth();
         int height = src.getHeight();
@@ -169,6 +188,8 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 		AffineTransform t = new AffineTransform();
 		Point2D.Float p = new Point2D.Float();
 
+        if ( premultiplyAlpha )
+			ImageMath.premultiply( inPixels, 0, inPixels.length );
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				int a = 0, r = 0, g = 0, b = 0;
@@ -222,6 +243,8 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 				index++;
 			}
 		}
+        if ( premultiplyAlpha )
+			ImageMath.unpremultiply( outPixels, 0, inPixels.length );
 
         setRGB( dst, 0, 0, width, height, outPixels );
         return dst;

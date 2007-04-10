@@ -627,4 +627,49 @@ public class ImageMath {
 		}
 	}
 
+    /**
+	 * Premultiply a block of pixels
+	 */
+	public static void premultiply( int[] p, int offset, int length ) {
+        length += offset;
+		for ( int i = offset; i < length; i ++ ) {
+            int rgb = p[i];
+            int a = (rgb >> 24) & 0xff;
+            int r = (rgb >> 16) & 0xff;
+            int g = (rgb >> 8) & 0xff;
+            int b = rgb & 0xff;
+            float f = a * (1.0f / 255.0f);
+            r *= f;
+            g *= f;
+            b *= f;
+            p[i] = (a << 24) | (r << 16) | (g << 8) | b;
+        }
+    }
+
+    /**
+	 * Premultiply a block of pixels
+	 */
+	public static void unpremultiply( int[] p, int offset, int length ) {
+        length += offset;
+		for ( int i = offset; i < length; i ++ ) {
+            int rgb = p[i];
+            int a = (rgb >> 24) & 0xff;
+            int r = (rgb >> 16) & 0xff;
+            int g = (rgb >> 8) & 0xff;
+            int b = rgb & 0xff;
+            if ( a != 0 && a != 255 ) {
+                float f = 255.0f / a;
+                r *= f;
+                g *= f;
+                b *= f;
+                if ( r > 255 )
+                    r = 255;
+                if ( g > 255 )
+                    g = 255;
+                if ( b > 255 )
+                    b = 255;
+                p[i] = (a << 24) | (r << 16) | (g << 8) | b;
+            }
+        }
+    }
 }

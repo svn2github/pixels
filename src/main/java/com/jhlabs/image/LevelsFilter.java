@@ -24,11 +24,11 @@ import java.awt.image.*;
  */
 public class LevelsFilter extends WholeImageFilter {
 
-	protected int[][] lut;
-    protected float lowLevel = 0;
-    protected float highLevel = 1;
-    protected float lowOutputLevel = 0;
-    protected float highOutputLevel = 1;
+	private int[][] lut;
+    private float lowLevel = 0;
+    private float highLevel = 1;
+    private float lowOutputLevel = 0;
+    private float highOutputLevel = 1;
 
 	public LevelsFilter() {
 	}

@@ -25,11 +25,18 @@ import java.awt.image.*;
  */
 public abstract class WholeImageFilter extends AbstractBufferedImageOp {
 
-	protected Rectangle transformedSpace;
+	/**
+     * The output image bounds.
+     */
+    protected Rectangle transformedSpace;
+
+	/**
+     * The input image bounds.
+     */
 	protected Rectangle originalSpace;
 	
 	/**
-	 * Construct a WholeImageFilter
+	 * Construct a WholeImageFilter.
 	 */
 	public WholeImageFilter() {
 	}
@@ -57,9 +64,21 @@ public abstract class WholeImageFilter extends AbstractBufferedImageOp {
         return dst;
     }
 
+	/**
+     * Calculate output bounds for given input bounds.
+     * @param rect input and output rectangle
+     */
 	protected void transformSpace(Rectangle rect) {
 	}
 	
+	/**
+     * Actually filter the pixels.
+     * @param width the image width
+     * @param height the image height
+     * @param inPixels the image pixels
+     * @param transformedSpace the output bounds
+     * @return the output pixels
+     */
 	protected abstract int[] filterPixels( int width, int height, int[] inPixels, Rectangle transformedSpace );
 }
 

@@ -24,7 +24,7 @@ import java.awt.image.*;
 public class AverageFilter extends ConvolveFilter {
 	
     /**
-     * The convoution kernal for the averaging.
+     * The convolution kernal for the averaging.
      */
 	protected static float[] theMatrix = { 0.1f, 0.1f, 0.1f, 0.1f, 0.2f, 0.1f, 0.1f, 0.1f, 0.1f };
 

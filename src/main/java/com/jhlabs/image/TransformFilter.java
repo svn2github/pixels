@@ -201,7 +201,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 		return pixels[ y*width+x ];
 	}
 
-	private BufferedImage filterPixelsNN( BufferedImage dst, int width, int height, int[] inPixels, Rectangle transformedSpace ) {
+	protected BufferedImage filterPixelsNN( BufferedImage dst, int width, int height, int[] inPixels, Rectangle transformedSpace ) {
 		int srcWidth = width;
 		int srcHeight = height;
 		int outWidth = transformedSpace.width;

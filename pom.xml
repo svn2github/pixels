@@ -24,7 +24,7 @@
     <mailingLists/>
     <developers>
         <developer>
-            <id>jerry</id>
+            <id>jerryhuxtable</id>
             <name>Jerry Huxtable</name>
             <email>jerry_AT_huxtable.com</email>
             <roles>
@@ -201,11 +201,11 @@
         <dependencies/>
     </dependencyManagement>
 
-    <distributionManagement><!-- TODO FIXME so they use java.net (needed for "mvn site-deploy") -->
+    <distributionManagement>
         <site>
-            <id>shell.sourceforge.net</id>
+            <id>pixels.java.net</id>
             <url>
-                scp://shell.sourceforge.net/home/groups/f/fi/filters/htdocs/
+                scp://jerryhuxtable@pixels.dev.java.net/source/browse/pixels/trunk/www/
             </url>
         </site>
     </distributionManagement>

@@ -51,6 +51,14 @@ public class ConvolveFilter extends AbstractBufferedImageOp {
      */
 	protected boolean alpha = true;
 
+    /**
+     * Whether to promultiply the alpha before convolving.
+     */
+	protected boolean premultiplyAlpha = true;
+
+    /**
+     * What do do at the image edges.
+     */
 	private int edgeAction = CLAMP_EDGES;
 
 	/**
@@ -140,6 +148,24 @@ public class ConvolveFilter extends AbstractBufferedImageOp {
 		return alpha;
 	}
 
+    /**
+     * Set whether to premultiply the alpha channel.
+     * @param premultiplyAlpha true to premultiply the alpha
+     * @see #getPremultiplyAlpha
+     */
+	public void setPremultiplyAlpha( boolean premultiplyAlpha ) {
+		this.premultiplyAlpha = premultiplyAlpha;
+	}
+
+    /**
+     * Get whether to premultiply the alpha channel.
+     * @return true to premultiply the alpha
+     * @see #setPremultiplyAlpha
+     */
+	public boolean getPremultiplyAlpha() {
+		return premultiplyAlpha;
+	}
+
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
         int width = src.getWidth();
         int height = src.getHeight();
@@ -151,7 +177,11 @@ public class ConvolveFilter extends AbstractBufferedImageOp {
         int[] outPixels = new int[width*height];
         getRGB( src, 0, 0, width, height, inPixels );
 
+        if ( premultiplyAlpha )
+			ImageMath.premultiply( inPixels, 0, inPixels.length );
 		convolve(kernel, inPixels, outPixels, width, height, alpha, edgeAction);
+        if ( premultiplyAlpha )
+			ImageMath.unpremultiply( outPixels, 0, outPixels.length );
 
         setRGB( dst, 0, 0, width, height, outPixels );
         return dst;

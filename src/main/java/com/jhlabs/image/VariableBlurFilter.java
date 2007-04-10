@@ -30,7 +30,26 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
 	private int vRadius = 1;
 	private int iterations = 1;
 	private BufferedImage blurMask;
-	
+	private boolean premultiplyAlpha = true;
+
+    /**
+     * Set whether to premultiply the alpha channel.
+     * @param premultiplyAlpha true to premultiply the alpha
+     * @see #getPremultiplyAlpha
+     */
+	public void setPremultiplyAlpha( boolean premultiplyAlpha ) {
+		this.premultiplyAlpha = premultiplyAlpha;
+	}
+
+    /**
+     * Get whether to premultiply the alpha channel.
+     * @return true to premultiply the alpha
+     * @see #setPremultiplyAlpha
+     */
+	public boolean getPremultiplyAlpha() {
+		return premultiplyAlpha;
+	}
+
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
 		int width = src.getWidth();
         int height = src.getHeight();
@@ -42,10 +61,14 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
         int[] outPixels = new int[width*height];
         getRGB( src, 0, 0, width, height, inPixels );
 
+        if ( premultiplyAlpha )
+			ImageMath.premultiply( inPixels, 0, inPixels.length );
         for (int i = 0; i < iterations; i++ ) {
             blur( inPixels, outPixels, width, height, hRadius, 1 );
             blur( outPixels, inPixels, height, width, vRadius, 2 );
         }
+        if ( premultiplyAlpha )
+			ImageMath.unpremultiply( inPixels, 0, inPixels.length );
 
         setRGB( dst, 0, 0, width, height, inPixels );
         return dst;
@@ -72,7 +95,7 @@ public class VariableBlurFilter extends AbstractBufferedImageOp {
         return null;
     }
 
-    private void blur( int[] in, int[] out, int width, int height, int radius, int pass ) {
+    public void blur( int[] in, int[] out, int width, int height, int radius, int pass ) {
         int widthMinus1 = width-1;
         int[] r = new int[width];
         int[] g = new int[width];

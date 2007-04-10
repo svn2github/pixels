@@ -25,28 +25,48 @@ import com.jhlabs.math.*;
  */
 public class MarbleFilter extends TransformFilter {
 
-	public float[] sinTable, cosTable;
-	public float xScale = 4;
-	public float yScale = 4;
-	public float amount = 1;
-	public float turbulence = 1;
+	private float[] sinTable, cosTable;
+	private float xScale = 4;
+	private float yScale = 4;
+	private float amount = 1;
+	private float turbulence = 1;
 	
 	public MarbleFilter() {
 		setEdgeAction(CLAMP);
 	}
 	
+	/**
+     * Set the X scale of the effect.
+     * @param xScale the scale.
+     * @see #getXScale
+     */
 	public void setXScale(float xScale) {
 		this.xScale = xScale;
 	}
 
+	/**
+     * Get the X scale of the effect.
+     * @return the scale.
+     * @see #setXScale
+     */
 	public float getXScale() {
 		return xScale;
 	}
 
+	/**
+     * Set the Y scale of the effect.
+     * @param yScale the scale.
+     * @see #getYScale
+     */
 	public void setYScale(float yScale) {
 		this.yScale = yScale;
 	}
 
+	/**
+     * Get the Y scale of the effect.
+     * @return the scale.
+     * @see #setYScale
+     */
 	public float getYScale() {
 		return yScale;
 	}
@@ -63,7 +83,7 @@ public class MarbleFilter extends TransformFilter {
 	}
 
 	/**
-	 * Get the amount of texture.
+	 * Get the amount of effect.
 	 * @return the amount
      * @see #setAmount
 	 */
@@ -72,8 +92,8 @@ public class MarbleFilter extends TransformFilter {
 	}
 
 	/**
-     * Specifies the turbulence of the texture.
-     * @param turbulence the turbulence of the texture.
+     * Specifies the turbulence of the effect.
+     * @param turbulence the turbulence of the effect.
      * @min-value 0
      * @max-value 1
      * @see #getTurbulence

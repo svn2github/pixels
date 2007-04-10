@@ -20,12 +20,12 @@ import java.awt.*;
 import java.awt.image.*;
 
 /**
- * A filter which allows the red, grren and blue channels of an image to be mixed into each other.
+ * A filter which allows the red, green and blue channels of an image to be mixed into each other.
  */
 public class ChannelMixFilter extends PointFilter {
 	
-	public int blueGreen, redBlue, greenRed;
-	public int intoR, intoG, intoB;
+	private int blueGreen, redBlue, greenRed;
+	private int intoR, intoG, intoB;
 	
 	public ChannelMixFilter() {
 		canFilterIndexColorModel = true;

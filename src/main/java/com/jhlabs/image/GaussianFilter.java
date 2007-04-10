@@ -83,8 +83,8 @@ public class GaussianFilter extends ConvolveFilter {
         src.getRGB( 0, 0, width, height, inPixels, 0, width );
 
 		if ( radius > 0 ) {
-			convolveAndTranspose(kernel, inPixels, outPixels, width, height, alpha, CLAMP_EDGES);
-			convolveAndTranspose(kernel, outPixels, inPixels, height, width, alpha, CLAMP_EDGES);
+			convolveAndTranspose(kernel, inPixels, outPixels, width, height, alpha, alpha && premultiplyAlpha, false, CLAMP_EDGES);
+			convolveAndTranspose(kernel, outPixels, inPixels, height, width, alpha, false, alpha && premultiplyAlpha, CLAMP_EDGES);
 		}
 
         dst.setRGB( 0, 0, width, height, inPixels, 0, width );
@@ -101,7 +101,7 @@ public class GaussianFilter extends ConvolveFilter {
      * @param alpha whether to blur the alpha channel
      * @param edgeAction what to do at the edges
      */
-	public static void convolveAndTranspose(Kernel kernel, int[] inPixels, int[] outPixels, int width, int height, boolean alpha, int edgeAction) {
+	public static void convolveAndTranspose(Kernel kernel, int[] inPixels, int[] outPixels, int width, int height, boolean alpha, boolean premultiply, boolean unpremultiply, int edgeAction) {
 		float[] matrix = kernel.getKernelData( null );
 		int cols = kernel.getWidth();
 		int cols2 = cols/2;
@@ -129,11 +129,27 @@ public class GaussianFilter extends ConvolveFilter {
 								ix = (x+width) % width;
 						}
 						int rgb = inPixels[ioffset+ix];
-						a += f * ((rgb >> 24) & 0xff);
-						r += f * ((rgb >> 16) & 0xff);
-						g += f * ((rgb >> 8) & 0xff);
-						b += f * (rgb & 0xff);
+						int pa = (rgb >> 24) & 0xff;
+						int pr = (rgb >> 16) & 0xff;
+						int pg = (rgb >> 8) & 0xff;
+						int pb = rgb & 0xff;
+						if ( premultiply ) {
+							float a255 = pa * (1.0f / 255.0f);
+							pr *= a255;
+							pg *= a255;
+							pb *= a255;
+						}
+						a += f * pa;
+						r += f * pr;
+						g += f * pg;
+						b += f * pb;
 					}
+				}
+				if ( unpremultiply && a != 0 && a != 255 ) {
+					float f = 255.0f / a;
+					r *= f;
+					g *= f;
+					b *= f;
 				}
 				int ia = alpha ? PixelUtils.clamp((int)(a+0.5)) : 0xff;
 				int ir = PixelUtils.clamp((int)(r+0.5));
