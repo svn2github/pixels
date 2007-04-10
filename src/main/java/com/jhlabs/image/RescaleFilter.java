@@ -26,8 +26,15 @@ public class RescaleFilter extends TransferFilter {
 	
 	private float scale = 1.0f;
 	
-	protected float transferFunction( float v ) {
-		return PixelUtils.clamp((int)(v * scale));
+	public RescaleFilter() {
+    }
+    
+	public RescaleFilter(float scale) {
+		this.scale = scale;
+    }
+    
+    protected float transferFunction( float v ) {
+		return v * scale;
 	}
 
 	/**
