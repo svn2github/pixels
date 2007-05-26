@@ -20,30 +20,18 @@ import java.awt.image.*;
 import java.util.*;
 
 /**
- * A filter which can be used to produce wipes by transferring the luma of a mask image into the alpha channel of the source.
+ * A filter which uses a another image as a ask to produce a halftoning effect.
  */
 public class HalftoneFilter extends AbstractBufferedImageOp {
 	
-	private float density = 0;
-	private float softness = 0;
+	private float softness = 0.1f;
 	private boolean invert;
+	private boolean monochrome;
 	private BufferedImage mask;
 
 	public HalftoneFilter() {
 	}
 
-	/**
-	 * Set the density of the image in the range 0..1.
-	 * *arg density The density
-	 */
-	public void setDensity( float density ) {
-		this.density = density;
-	}
-	
-	public float getDensity() {
-		return density;
-	}
-	
 	/**
 	 * Set the softness of the effect in the range 0..1.
 	 * @param softness the softness
@@ -64,10 +52,20 @@ public class HalftoneFilter extends AbstractBufferedImageOp {
 		return softness;
 	}
 	
+	/**
+	 * Set the halftone mask.
+	 * @param mask the mask
+     * @see #getMask
+	 */
 	public void setMask( BufferedImage mask ) {
 		this.mask = mask;
 	}
 	
+	/**
+	 * Get the halftone mask.
+	 * @return the mask
+     * @see #setMask
+	 */
 	public BufferedImage getMask() {
 		return mask;
 	}
@@ -80,6 +78,24 @@ public class HalftoneFilter extends AbstractBufferedImageOp {
 		return invert;
 	}
 	
+	/**
+	 * Set whether to do monochrome halftoning.
+	 * @param monochrome true for monochrome halftoning
+     * @see #getMonochrome
+	 */
+	public void setMonochrome(boolean monochrome) {
+		this.monochrome = monochrome;
+	}
+	
+	/**
+	 * Get whether to do monochrome halftoning.
+	 * @return true for monochrome halftoning
+     * @see #setMonochrome
+	 */
+	public boolean getMonochrome() {
+		return monochrome;
+	}
+
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
         int width = src.getWidth();
         int height = src.getHeight();
@@ -92,9 +108,6 @@ public class HalftoneFilter extends AbstractBufferedImageOp {
         int maskWidth = mask.getWidth();
         int maskHeight = mask.getHeight();
 
-		float d = density * (1+softness);
-		float lower = 255 * (d-softness);
-		float upper = 255 * d;
         float s = 255*softness;
 
 		int[] inPixels = new int[width];
@@ -107,16 +120,27 @@ public class HalftoneFilter extends AbstractBufferedImageOp {
 			for ( int x = 0; x < width; x++ ) {
 				int maskRGB = maskPixels[x % maskWidth];
 				int inRGB = inPixels[x];
-				int v = PixelUtils.brightness( maskRGB );
-				int iv = PixelUtils.brightness( inRGB );
-				float f = ImageMath.smoothStep( iv-s, iv+s, v );
-				int a = (int)(255 * f);
-
 				if ( invert )
-					a = 255-a;
-//				inPixels[x] = (a << 24) | (inRGB & 0x00ffffff);
-				inPixels[x] = (inRGB & 0xff000000) | (a << 16) | (a << 8) | a;
-			}
+                    maskRGB ^= 0xffffff;
+                if ( monochrome ) {
+                    int v = PixelUtils.brightness( maskRGB );
+                    int iv = PixelUtils.brightness( inRGB );
+                    float f = 1-ImageMath.smoothStep( iv-s, iv+s, v );
+                    int a = (int)(255 * f);
+                    inPixels[x] = (inRGB & 0xff000000) | (a << 16) | (a << 8) | a;
+                } else {
+                    int ir = (inRGB >> 16) & 0xff;
+                    int ig = (inRGB >> 8) & 0xff;
+                    int ib = inRGB & 0xff;
+                    int mr = (maskRGB >> 16) & 0xff;
+                    int mg = (maskRGB >> 8) & 0xff;
+                    int mb = maskRGB & 0xff;
+                    int r = (int)(255 * (1-ImageMath.smoothStep( ir-s, ir+s, mr )));
+                    int g = (int)(255 * (1-ImageMath.smoothStep( ig-s, ig+s, mg )));
+                    int b = (int)(255 * (1-ImageMath.smoothStep( ib-s, ib+s, mb )));
+                    inPixels[x] = (inRGB & 0xff000000) | (r << 16) | (g << 8) | b;
+                }
+            }
 
 			setRGB( dst, 0, y, width, 1, inPixels );
         }
