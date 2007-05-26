@@ -41,6 +41,11 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 	public final static int WRAP = 2;
 
     /**
+     * Clamp pixels RGB to the image edges, but zero the alpha. This prevents gray borders on your image.
+     */
+	public final static int RGB_CLAMP = 3;
+
+    /**
      * Use nearest-neighbout interpolation.
      */
 	public final static int NEAREST_NEIGHBOUR = 0;
@@ -53,7 +58,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
     /**
      * The action to take for pixels off the image edge.
      */
-	protected int edgeAction = ZERO;
+	protected int edgeAction = RGB_CLAMP;
 
     /**
      * The type of interpolation to use.
@@ -196,6 +201,8 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 				return pixels[(ImageMath.mod(y, height) * width) + ImageMath.mod(x, width)];
 			case CLAMP:
 				return pixels[(ImageMath.clamp(y, 0, height-1) * width) + ImageMath.clamp(x, 0, width-1)];
+			case RGB_CLAMP:
+				return pixels[(ImageMath.clamp(y, 0, height-1) * width) + ImageMath.clamp(x, 0, width-1)] & 0x00ffffff;
 			}
 		}
 		return pixels[ y*width+x ];
@@ -233,6 +240,8 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 					case CLAMP:
 						p = inPixels[(ImageMath.clamp(srcY, 0, srcHeight-1) * srcWidth) + ImageMath.clamp(srcX, 0, srcWidth-1)];
 						break;
+                    case RGB_CLAMP:
+						p = inPixels[(ImageMath.clamp(srcY, 0, srcHeight-1) * srcWidth) + ImageMath.clamp(srcX, 0, srcWidth-1)] & 0x00ffffff;
 					}
 					outPixels[x] = p;
 				} else {
