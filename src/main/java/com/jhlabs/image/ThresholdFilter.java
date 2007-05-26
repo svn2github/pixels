@@ -24,9 +24,7 @@ import java.awt.image.*;
 public class ThresholdFilter extends PointFilter {
 
 	private int lowerThreshold;
-	private int lowerThreshold3;
 	private int upperThreshold;
-	private int upperThreshold3;
 	private int white = 0xffffff;
 	private int black = 0x000000;
 	
@@ -53,7 +51,6 @@ public class ThresholdFilter extends PointFilter {
      */
 	public void setLowerThreshold(int lowerThreshold) {
 		this.lowerThreshold = lowerThreshold;
-		lowerThreshold3 = lowerThreshold*3;
 	}
 	
 	/**
@@ -72,7 +69,6 @@ public class ThresholdFilter extends PointFilter {
      */
 	public void setUpperThreshold(int upperThreshold) {
 		this.upperThreshold = upperThreshold;
-		upperThreshold3 = upperThreshold*3;
 	}
 
 	/**
@@ -121,16 +117,9 @@ public class ThresholdFilter extends PointFilter {
 	}
 
 	public int filterRGB(int x, int y, int rgb) {
-		int a = rgb & 0xff000000;
-		int r = (rgb >> 16) & 0xff;
-		int g = (rgb >> 8) & 0xff;
-		int b = rgb & 0xff;
-		int l = r + g + b;
-		if (l < lowerThreshold3)
-			return a | black;
-		else if (l > upperThreshold3)
-			return a | white;
-		return rgb;
+        int v = PixelUtils.brightness( rgb );
+        float f = ImageMath.smoothStep( lowerThreshold, upperThreshold, v );
+        return (rgb & 0xff000000) | (ImageMath.mixColors( f, black, white ) & 0xffffff);
 	}
 
 	public String toString() {
