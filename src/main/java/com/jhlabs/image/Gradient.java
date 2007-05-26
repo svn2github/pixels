@@ -161,6 +161,14 @@ public class Gradient extends ArrayColormap implements Cloneable {
 				map[i] = ImageMath.mixColors((float)(i-n)/(256-n), color, lastColor);
 	}
 
+	/**
+	 * Get the number of knots in the gradient.
+	 * @return the number of knots.
+	 */
+	public int getNumKnots() {
+		return numKnots;
+	}
+	 
     /**
      * Set a knot color.
      * @param n the knot index
@@ -333,11 +341,22 @@ public class Gradient extends ArrayColormap implements Cloneable {
      * Set a knot position.
      * @param n the knot index
      * @param x the knot position
+     * @see #setKnotPosition
      */
 	public void setKnotPosition(int n, int x) {
 		xKnots[n] = ImageMath.clamp(x, 0, 255);
 		sortKnots();
 		rebuildGradient();
+	}
+
+    /**
+     * Get a knot position.
+     * @param n the knot index
+     * @return the knot position
+     * @see #setKnotPosition
+     */
+	public int getKnotPosition(int n) {
+		return xKnots[n];
 	}
 
     /**

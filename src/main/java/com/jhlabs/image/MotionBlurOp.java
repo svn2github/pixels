@@ -246,6 +246,6 @@ public class MotionBlurOp extends AbstractBufferedImageOp {
     }
     
 	public String toString() {
-		return "Blur/Motion Blur...";
+		return "Blur/Faster Motion Blur...";
 	}
 }

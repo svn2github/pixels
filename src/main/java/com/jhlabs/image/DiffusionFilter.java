@@ -63,7 +63,7 @@ public class DiffusionFilter extends WholeImageFilter {
 	
 	/**
 	 * Set whether to use a color dither.
-	 * @param colorDither true to use c color dither
+	 * @param colorDither true to use a color dither
      * @see #getColorDither
 	 */
 	public void setColorDither(boolean colorDither) {
@@ -72,7 +72,7 @@ public class DiffusionFilter extends WholeImageFilter {
 
 	/**
 	 * Get whether to use a color dither.
-	 * @return true to use c color dither
+	 * @return true to use a color dither
      * @see #setColorDither
 	 */
 	public boolean getColorDither() {

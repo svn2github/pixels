@@ -92,7 +92,7 @@ public class PointillizeFilter extends CellularFilter {
 	}
 
 	public String toString() {
-		return "Stylize/Pointillize...";
+		return "Pixellate/Pointillize...";
 	}
 	
 }
