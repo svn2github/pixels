@@ -124,8 +124,8 @@ public class ColorHalftoneFilter extends AbstractBufferedImageOp {
         int[] outPixels = new int[width];
         int[] inPixels = getRGB( src, 0, 0, width, height, null );
         for ( int y = 0; y < height; y++ ) {
-            for ( int x = 0; x < width; x++ )
-                outPixels[x] = (inPixels[x] & 0xff000000) | 0xffffff;
+            for ( int x = 0, ix = y*width; x < width; x++, ix++ )
+                outPixels[x] = (inPixels[ix] & 0xff000000) | 0xffffff;
             for ( int channel = 0; channel < 3; channel++ ) {
                 int shift = 16-8*channel;
                 int mask = 0x000000ff << shift;
@@ -173,12 +173,11 @@ public class ColorHalftoneFilter extends AbstractBufferedImageOp {
                     int v = (int)(255 * f);
                     v <<= shift;
                     v ^= ~mask;
+					v |= 0xff000000;
                     outPixels[x] &= v;
                 }
             }
-            for ( int x = 0; x < width; x++ )
-                outPixels[x] |= 0xff000000;
-            setRGB( dst, 0, y, width, 1, outPixels );
+			setRGB( dst, 0, y, width, 1, outPixels );
         }
 
         return dst;

@@ -119,7 +119,8 @@ public class OilFilter extends WholeImageFilter {
 				r = rTotal[r] / rHistogram[r];
 				g = gTotal[g] / gHistogram[g];
 				b = bTotal[b] / bHistogram[b];
-				outPixels[index++] = 0xff000000 | ( r << 16 ) | ( g << 8 ) | b;
+				outPixels[index] = (inPixels[index] & 0xff000000) | ( r << 16 ) | ( g << 8 ) | b;
+				index++;
 			}
 		}
 		return outPixels;

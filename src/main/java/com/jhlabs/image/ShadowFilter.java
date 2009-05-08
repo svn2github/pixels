@@ -211,10 +211,13 @@ public class ShadowFilter extends AbstractBufferedImageOp {
         int width = src.getWidth();
         int height = src.getHeight();
 
+		float xOffset = distance*(float)Math.cos(angle);
+		float yOffset = -distance*(float)Math.sin(angle);
+
         if ( dst == null ) {
             if ( addMargins ) {
 				ColorModel cm = src.getColorModel();
-				dst = new BufferedImage(cm, cm.createCompatibleWritableRaster(src.getWidth(), src.getHeight()), cm.isAlphaPremultiplied(), null);
+				dst = new BufferedImage(cm, cm.createCompatibleWritableRaster(src.getWidth() + (int) (Math.abs(xOffset) + radius), src.getHeight() + (int) (Math.abs(yOffset) + radius)), cm.isAlphaPremultiplied(), null);
 			} else
 				dst = createCompatibleDestImage( src, null );
 		}
@@ -234,16 +237,13 @@ public class ShadowFilter extends AbstractBufferedImageOp {
         new BandCombineOp( extractAlpha, null ).filter( src.getRaster(), shadow.getRaster() );
         shadow = new GaussianFilter( radius ).filter( shadow, null );
 
-		float xOffset = distance*(float)Math.cos(angle);
-		float yOffset = -distance*(float)Math.sin(angle);
-
 		Graphics2D g = dst.createGraphics();
 		g.setComposite( AlphaComposite.getInstance( AlphaComposite.SRC_OVER, opacity ) );
 		if ( addMargins ) {
 			float radius2 = radius/2;
 			float topShadow = Math.max( 0, radius-yOffset );
 			float leftShadow = Math.max( 0, radius-xOffset );
-			g.translate( topShadow, leftShadow );
+			g.translate( leftShadow, topShadow );
 		}
 		g.drawRenderedImage( shadow, AffineTransform.getTranslateInstance( xOffset, yOffset ) );
 		if ( !shadowOnly ) {

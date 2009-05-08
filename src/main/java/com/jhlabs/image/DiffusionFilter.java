@@ -155,7 +155,7 @@ public class DiffusionFilter extends WholeImageFilter {
 				int g2 = map[div[g1]];
 				int b2 = map[div[b1]];
 
-				outPixels[index] = 0xff000000 | (r2 << 16) | (g2 << 8) | b2;
+				outPixels[index] = (rgb1 & 0xff000000) | (r2 << 16) | (g2 << 8) | b2;
 
 				int er = r1-r2;
 				int eg = g1-g2;
@@ -181,7 +181,7 @@ public class DiffusionFilter extends WholeImageFilter {
 									r1 += er * w/sum;
 									g1 += eg * w/sum;
 									b1 += eb * w/sum;
-									inPixels[k] = (PixelUtils.clamp(r1) << 16) | (PixelUtils.clamp(g1) << 8) | PixelUtils.clamp(b1);
+									inPixels[k] = (inPixels[k] & 0xff000000) | (PixelUtils.clamp(r1) << 16) | (PixelUtils.clamp(g1) << 8) | PixelUtils.clamp(b1);
 								}
 							}
 						}
