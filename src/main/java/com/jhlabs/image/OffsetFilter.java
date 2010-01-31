@@ -25,6 +25,10 @@ public class OffsetFilter extends TransformFilter {
 	private int xOffset, yOffset;
 	private boolean wrap;
 
+    private float relativeX;
+    private float relativeY;
+    private boolean useRelative = false;
+
 	public OffsetFilter() {
 		this(0, 0, true);
 	}
@@ -36,7 +40,35 @@ public class OffsetFilter extends TransformFilter {
 		setEdgeAction( ZERO );
 	}
 
-	public void setXOffset(int xOffset) {
+    public void setRelativeX(float relativeX) {
+        this.relativeX = relativeX;
+    }
+
+    public void setRelativeY(float relativeY) {
+        this.relativeY = relativeY;
+    }
+
+    public float getRelativeX() {
+        return relativeX;
+    }
+
+    public float getRelativeY() {
+        return relativeY;
+    }
+
+    public boolean isUseRelative() {
+        return useRelative;
+    }
+
+    /**
+     * When useRelative is set, the relative settings overwrite the absolute settings
+     * @param useRelative
+     */
+    public void setUseRelative(boolean useRelative) {
+        this.useRelative = useRelative;
+    }
+
+    public void setXOffset(int xOffset) {
 		this.xOffset = xOffset;
 	}
 	
@@ -73,6 +105,12 @@ public class OffsetFilter extends TransformFilter {
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
 		this.width = src.getWidth();
 		this.height = src.getHeight();
+
+        if(useRelative) {
+            xOffset = (int) (width * relativeX);
+            yOffset = (int) (height * relativeY);
+        }
+
 		if ( wrap ) {
 			while (xOffset < 0)
 				xOffset += width;
