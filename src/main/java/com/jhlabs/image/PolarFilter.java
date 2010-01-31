@@ -44,6 +44,10 @@ public class PolarFilter extends TransformFilter {
 	private float centreX, centreY;
 	private float radius;
 
+    private float relativeCentreX = 0.5f;
+    private float relativeCentreY = 0.5f;
+
+
 	/**
      * Construct a PolarFilter.
      */
@@ -63,8 +67,12 @@ public class PolarFilter extends TransformFilter {
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
 		this.width = src.getWidth();
 		this.height = src.getHeight();
-		centreX = width/2;
-		centreY = height/2;
+//		centreX = width/2;
+//		centreY = height/2;
+
+        centreX = width * relativeCentreX;
+        centreY = height * relativeCentreY;
+
 		radius = Math.max(centreY, centreX);
 		return super.filter( src, dst );
 	}
@@ -203,6 +211,22 @@ public class PolarFilter extends TransformFilter {
 			break;
 		}
 	}
+
+    public void setRelativeCentreX(float relativeCentreX) {
+        this.relativeCentreX = relativeCentreX;
+    }
+
+    public void setRelativeCentreY(float relativeCentreY) {
+        this.relativeCentreY = relativeCentreY;
+    }
+
+    public float getRelativeCentreX() {
+        return relativeCentreX;
+    }
+
+    public float getRelativeCentreY() {
+        return relativeCentreY;
+    }
 
 	public String toString() {
 		return "Distort/Polar Coordinates...";
