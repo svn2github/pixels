@@ -33,10 +33,20 @@ public class GlintFilter extends AbstractBufferedImageOp {
 	private boolean glintOnly = false;
 	private Colormap colormap = new LinearColormap( 0xffffffff, 0xff000000 );
 
+    private float coverage = 1.0f; // probability in percentage
+
     public GlintFilter() {
 	}
-	
-	/**
+
+    public float getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(float coverage) {
+        this.coverage = coverage;
+    }
+
+    /**
      * Set the threshold value.
      * @param threshold the threshold value
      * @see #getThreshold
@@ -214,7 +224,8 @@ public class GlintFilter extends AbstractBufferedImageOp {
 			int ymin2 = Math.max( y-length2, 0 )-y;
 			int ymax2 = Math.min( y+length2, height-1 )-y;
 			for ( int x = 0; x < width; x++ ) {
-				if ( (pixels[x] & 0xff) > threshold*255 ) {
+                boolean createGlint = (coverage > Math.random());
+				if (createGlint && (pixels[x] & 0xff) > threshold*255 ) {
 					int xmin = Math.max( x-length, 0 )-x;
 					int xmax = Math.min( x+length, width-1 )-x;
 					int xmin2 = Math.max( x-length2, 0 )-x;
@@ -232,8 +243,8 @@ public class GlintFilter extends AbstractBufferedImageOp {
 						dstPixels[j] = PixelUtils.combinePixels( dstPixels[j], colors[k], PixelUtils.ADD );
 
 					// Diagonals
-					int xymin = Math.max( xmin2, ymin2 );
-					int xymax = Math.min( xmax2, ymax2 );
+//					int xymin = Math.max( xmin2, ymin2 );
+//					int xymax = Math.min( xmax2, ymax2 );
 					// SE
 					int count = Math.min( xmax2, ymax2 );
 					for ( int i = 1, j = index+width+1, k = 0; i <= count; i++, j += width+1, k++ )
