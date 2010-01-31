@@ -247,7 +247,7 @@ public class FeedbackFilter extends AbstractBufferedImageOp {
             dst = createCompatibleDestImage( src, null );
         float cx = (float)src.getWidth() * centreX;
         float cy = (float)src.getHeight() * centreY;
-        float imageRadius = (float)Math.sqrt( cx*cx + cy*cy );
+//        float imageRadius = (float)Math.sqrt( cx*cx + cy*cy );
         float translateX = (float)(distance * Math.cos( angle ));
         float translateY = (float)(distance * -Math.sin( angle ));
         float scale = (float)Math.exp(zoom);
