@@ -129,8 +129,8 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
     public BufferedImage filter( BufferedImage src, BufferedImage dst ) {
         int width = src.getWidth();
         int height = src.getHeight();
-		int type = src.getType();
-		WritableRaster srcRaster = src.getRaster();
+//		int type = src.getType();
+//		WritableRaster srcRaster = src.getRaster();
 
 		originalSpace = new Rectangle(0, 0, width, height);
 		transformedSpace = new Rectangle(0, 0, width, height);
@@ -140,7 +140,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
             ColorModel dstCM = src.getColorModel();
 			dst = new BufferedImage(dstCM, dstCM.createCompatibleWritableRaster(transformedSpace.width, transformedSpace.height), dstCM.isAlphaPremultiplied(), null);
 		}
-		WritableRaster dstRaster = dst.getRaster();
+//		WritableRaster dstRaster = dst.getRaster();
 
 		int[] inPixels = getRGB( src, 0, 0, width, height, null );
 
@@ -154,7 +154,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 		int outWidth = transformedSpace.width;
 		int outHeight = transformedSpace.height;
 		int outX, outY;
-		int index = 0;
+//		int index = 0;
 		int[] outPixels = new int[outWidth];
 
 		outX = transformedSpace.x;
@@ -218,7 +218,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 
 		outX = transformedSpace.x;
 		outY = transformedSpace.y;
-		int[] rgb = new int[4];
+//		int[] rgb = new int[4];
 		float[] out = new float[2];
 
 		for (int y = 0; y < outHeight; y++) {
@@ -246,7 +246,7 @@ public abstract class TransformFilter extends AbstractBufferedImageOp {
 					outPixels[x] = p;
 				} else {
 					int i = srcWidth*srcY + srcX;
-					rgb[0] = inPixels[i];
+//					rgb[0] = inPixels[i];
 					outPixels[x] = inPixels[i];
 				}
 			}
