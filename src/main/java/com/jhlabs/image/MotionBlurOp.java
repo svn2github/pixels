@@ -23,7 +23,7 @@ import java.awt.image.*;
 /**
  * A filter which produces motion blur the faster, but lower-quality way.
  */
-public class MotionBlurOp extends AbstractBufferedImageOp {
+public class MotionBlurOp extends AbstractBufferedImageOp implements MotionBlur {
 
     private float centreX = 0.5f, centreY = 0.5f;
     private float distance;
