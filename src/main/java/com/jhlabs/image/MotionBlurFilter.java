@@ -22,7 +22,7 @@ import java.awt.geom.*;
 /**
  * A filter which produces motion blur the slow, but higher-quality way.
  */
-public class MotionBlurFilter extends AbstractBufferedImageOp {
+public class MotionBlurFilter extends AbstractBufferedImageOp implements MotionBlur {
 
 	private float angle = 0.0f;
 	private float falloff = 1.0f;
@@ -31,6 +31,9 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
 	private float rotation = 0.0f;
 	private boolean wrapEdges = false;
 	private boolean premultiplyAlpha = true;
+
+    private float centreY = 0.5f;
+    private float centreX = 0.5f;
 
     /**
      * Construct a MotionBlurFilter.
@@ -51,8 +54,63 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
         this.rotation = rotation;
         this.zoom = zoom;
     }
-    
+
 	/**
+	 * Set the centre of the effect in the X direction as a proportion of the image size.
+	 * @param centreX the center
+     * @see #getCentreX
+	 */
+	public void setCentreX( float centreX ) {
+		this.centreX = centreX;
+	}
+
+	/**
+	 * Get the centre of the effect in the X direction as a proportion of the image size.
+	 * @return the center
+     * @see #setCentreX
+	 */
+	public float getCentreX() {
+		return centreX;
+	}
+
+	/**
+	 * Set the centre of the effect in the Y direction as a proportion of the image size.
+	 * @param centreY the center
+     * @see #getCentreY
+	 */
+	public void setCentreY( float centreY ) {
+		this.centreY = centreY;
+	}
+
+	/**
+	 * Get the centre of the effect in the Y direction as a proportion of the image size.
+	 * @return the center
+     * @see #setCentreY
+	 */
+	public float getCentreY() {
+		return centreY;
+	}
+
+	/**
+	 * Set the centre of the effect as a proportion of the image size.
+	 * @param centre the center
+     * @see #getCentre
+	 */
+	public void setCentre( Point2D centre ) {
+		this.centreX = (float)centre.getX();
+		this.centreY = (float)centre.getY();
+	}
+
+	/**
+	 * Get the centre of the effect as a proportion of the image size.
+	 * @return the center
+     * @see #setCentre
+	 */
+	public Point2D getCentre() {
+		return new Point2D.Float( centreX, centreY );
+	}
+
+    /**
      * Specifies the angle of blur.
      * @param angle the angle of blur.
      * @angle
@@ -172,13 +230,17 @@ public class MotionBlurFilter extends AbstractBufferedImageOp {
         int[] outPixels = new int[width*height];
         getRGB( src, 0, 0, width, height, inPixels );
 
-		float sinAngle = (float)Math.sin(angle);
-		float cosAngle = (float)Math.cos(angle);
+//		float sinAngle = (float)Math.sin(angle);
+//		float cosAngle = (float)Math.cos(angle);
+//
+//		float total;
 
-		float total;
-		int cx = width/2;
-		int cy = height/2;
-		int index = 0;
+//		int cx = width/2;
+//		int cy = height/2;
+        int cx = (int) (width * centreX);
+        int cy = (int) (height * centreY);
+
+        int index = 0;
 
         float imageRadius = (float)Math.sqrt( cx*cx + cy*cy );
         float translateX = (float)(distance * Math.cos( angle ));
