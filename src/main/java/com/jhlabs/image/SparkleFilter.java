@@ -31,7 +31,11 @@ public class SparkleFilter extends PointFilter {
 	private long seed = 371;
 	private float[] rayLengths;
 	private Random randomNumbers = new Random();
-	
+
+    private float relativeCentreX = 0.5f;
+    private float relativeCentreY = 0.5f;
+    private boolean lightOnly;
+
 	public SparkleFilter() {
 	}
 
@@ -101,8 +105,8 @@ public class SparkleFilter extends PointFilter {
 	public void setDimensions(int width, int height) {
 		this.width = width;
 		this.height = height;
-		centreX = width/2;
-		centreY = height/2;
+		centreX = (int) (width * relativeCentreX);
+        centreY = (int) (height * relativeCentreY);
 		super.setDimensions(width, height);
 		randomNumbers.setSeed(seed);
 		rayLengths = new float[rays];
@@ -129,8 +133,36 @@ public class SparkleFilter extends PointFilter {
 			f *= g;
 		}
 		f = ImageMath.clamp(f, 0, 1);
-		return ImageMath.mixColors(f, rgb, color);
+        if(lightOnly) {
+            return ImageMath.mixColors(f, 0, color);
+        } else {
+    		return ImageMath.mixColors(f, rgb, color);
+        }
 	}
+
+    public void setRelativeCentreX(float relativeCentreX) {
+        this.relativeCentreX = relativeCentreX;
+    }
+
+    public void setRelativeCentreY(float relativeCentreY) {
+        this.relativeCentreY = relativeCentreY;
+    }
+
+    public float getRelativeCentreX() {
+        return relativeCentreX;
+    }
+
+    public float getRelativeCentreY() {
+        return relativeCentreY;
+    }
+
+    public boolean isLightOnly() {
+        return lightOnly;
+    }
+
+    public void setLightOnly(boolean lightOnly) {
+        this.lightOnly = lightOnly;
+    }
 
 	public String toString() {
 		return "Stylize/Sparkle...";
