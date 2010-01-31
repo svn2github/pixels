@@ -152,12 +152,12 @@ public class RippleFilter extends TransformFilter {
 	}
 
 	protected void transformSpace(Rectangle r) {
-		if (edgeAction == ZERO) {
-			r.x -= (int)xAmplitude;
-			r.width += (int)(2*xAmplitude);
-			r.y -= (int)yAmplitude;
-			r.height += (int)(2*yAmplitude);
-		}
+//		if (edgeAction == ZERO) {
+//			r.x -= (int)xAmplitude;
+//			r.width += (int)(2*xAmplitude);
+//			r.y -= (int)yAmplitude;
+//			r.height += (int)(2*yAmplitude);
+//		}
 	}
 
 	protected void transformInverse(int x, int y, float[] out) {
