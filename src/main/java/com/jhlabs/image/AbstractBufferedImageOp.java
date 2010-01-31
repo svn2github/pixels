@@ -60,7 +60,8 @@ public abstract class AbstractBufferedImageOp implements BufferedImageOp, Clonea
      */
 	public int[] getRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();
-		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
+//		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
+        if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB  || type == BufferedImage.TYPE_INT_ARGB_PRE)
 			return (int [])image.getRaster().getDataElements( x, y, width, height, pixels );
 		return image.getRGB( x, y, width, height, pixels, 0, width );
     }
@@ -78,7 +79,8 @@ public abstract class AbstractBufferedImageOp implements BufferedImageOp, Clonea
 	 */
 	public void setRGB( BufferedImage image, int x, int y, int width, int height, int[] pixels ) {
 		int type = image.getType();
-		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB )
+//		if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB  )
+        if ( type == BufferedImage.TYPE_INT_ARGB || type == BufferedImage.TYPE_INT_RGB || type == BufferedImage.TYPE_INT_ARGB_PRE )
 			image.getRaster().setDataElements( x, y, width, height, pixels );
 		else
 			image.setRGB( x, y, width, height, pixels, 0, width );
